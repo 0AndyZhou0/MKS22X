@@ -8,11 +8,12 @@ public class Recursion{
 	//System.out.println(fib(6));
 	//System.out.println(fib(7));
 	//System.out.println(fib(-8));
-	System.out.println(sqrt(0));
-	System.out.println(sqrt(1));
-	System.out.println(sqrt(2));
-	System.out.println(sqrt(3));
-	System.out.println(sqrt(4));
+	//System.out.println(sqrt(0));
+	//System.out.println(sqrt(1));
+	//System.out.println(sqrt(2));
+	//System.out.println(sqrt(3));
+	//System.out.println(sqrt(4));
+	System.out.println(sqrt(-4));
     }
     public static int fact(int n){
 	if(n < 0){
