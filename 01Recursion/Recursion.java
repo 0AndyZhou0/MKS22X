@@ -8,6 +8,11 @@ public class Recursion{
 	//System.out.println(fib(6));
 	//System.out.println(fib(7));
 	//System.out.println(fib(-8));
+	System.out.println(sqrt(0));
+	System.out.println(sqrt(1));
+	System.out.println(sqrt(2));
+	System.out.println(sqrt(3));
+	System.out.println(sqrt(4));
     }
     public static int fact(int n){
 	if(n < 0){
@@ -34,12 +39,15 @@ public class Recursion{
 	if(n < 0){
 	    throw new IllegalArgumentException();
 	}
+	if(n == 0){
+	    return 0;
+	}
 	double guess = n / 2;
 	return sqrtHelper(n,guess);
     }
-    public double sqrtHelper(double n,double guess){
-	if(guess * guess - n > n * 0.0001){
-	    guess = (n / guess + guess) / 2;
+    public static double sqrtHelper(double n,double guess){
+	guess = (n / guess + guess) / 2;
+	if(guess * guess - n > n * 0.00000000000000000000001){
 	    return sqrtHelper(n,guess);
 	}
 	return guess;
