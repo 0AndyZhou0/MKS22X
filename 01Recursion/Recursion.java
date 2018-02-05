@@ -30,4 +30,18 @@ public class Recursion{
 	}
 	return fib(n-1) + fib(n-2);
     }
+    public static double sqrt(double n){
+	if(n < 0){
+	    throw new IllegalArgumentException();
+	}
+	double guess = n / 2;
+	return sqrtHelper(n,guess);
+    }
+    public double sqrtHelper(double n,double guess){
+	if(guess * guess - n > n * 0.0001){
+	    guess = (n / guess + guess) / 2;
+	    return sqrtHelper(n,guess);
+	}
+	return guess;
+    }
 }
