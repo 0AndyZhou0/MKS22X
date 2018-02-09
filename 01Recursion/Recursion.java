@@ -14,6 +14,7 @@ public class Recursion{
 	//System.out.println(sqrt(3));
 	//System.out.println(sqrt(4));
 	//System.out.println(sqrt(-4));
+	//System.out.println(isPossibleSum(13,56000));
         boolean a = queenProblem();
     }
     public static int fact(int n){
@@ -88,5 +89,13 @@ public class Recursion{
 	    }
 	    return queenProblemHelper(pieces,x,y++);
 	}
+    public static boolean isPossibleSum(int n,int target){
+	if(target == 0){
+	    return true;
+	}
+	if(n < 0){
+	    return false;
+	}
+	return isPossibleSum(n-1,target) || isPossibleSum(n-1,target-n);
     }
 }
