@@ -1,0 +1,77 @@
+public class QueenBoard{
+    public static void main(String[] args){
+	QueenBoard a = new QueenBoard(8);
+    }
+    private int[][] board;
+    
+    public QueenBoard(int size){
+	board = new int[size][size];
+	addQueen(0,0);
+    }
+    
+    private boolean addQueen(int r, int c){
+	if(board[r][c] != 0){
+	    return false;
+	}
+	//Adds row and col
+	for(int i = 0;i < board.length;i++){
+	    board[i][c]++;
+	    board[r][i]++;
+	}
+	//Adds diagonal
+        for(int i = -1;i <= 1;i++){
+	    int row = r;
+	    int col = c;
+	    while(row > 0 && col > 0 && row < board.length && col < board.length){
+		board[row][col]++;
+		row--;
+		col+=i;
+	    }
+	    while(row < board.length && col < board.length && row > 0 && col > 0 && row < board.length){
+		board[row][col]++;
+		row++;
+		col-=i;
+	    }
+	}
+	return true;
+    }
+    private boolean removeQueen(int r, int c){
+        return true;
+    }
+
+    /**
+     *@return The output string formatted as follows:
+     *All numbers that represent queens are replaced with 'Q' 
+     *all others are displayed as underscores '_'
+     *There are spaces between each symbol:  
+     *Q _ _ _
+     *_ _ Q _
+     * etc.
+     */
+    public String toString(){
+	String s = "";
+	for(int x = 0;x < board.length;x++){
+	    for(int y = 0;y < board.length;y++){
+	        
+	    }
+	}
+	return "";
+    }
+
+    /**
+     *@return false when the board is not solveable and leaves the board filled with zeros; 
+     *        true when the board is solveable, and leaves the board in a solved state
+     *@throws IllegalStateException when the board starts with any non-zero value
+     */
+    public boolean solve(){
+	return true;
+    }
+
+    /**
+     *@return the number of solutions found, and leaves the board filled with only 0's
+     *@throws IllegalStateException when the board starts with any non-zero value
+     */
+    public int countSolutions(){
+	return 0;
+    }
+}
