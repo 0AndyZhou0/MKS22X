@@ -111,23 +111,21 @@ public class QueenBoard{
 	    return true;
 	}
 	int r = -1;
-	int c = -1;
-	for(int x = 0;x < board.length;x++){
-	    for(int y = 0;y < board.length;y++){
-		if(board[x][y] == 0){
-		    r = x;
-		    c = y;
-		    x = board.length;
-		    y = board.length;
-		}
+	for(int row = 0;row < board.length;row++){
+	    if(board[row][0] == 0){
+		r = row;
 	    }
 	}
 	if(r == -1){
 	    return false;
 	}
-	addQueen(r,c);
-	if(solve()){
-	    return true;
+	for(int c = 0;c < board.length;c++){
+	    if(addQueen(r,c)){
+		if(solve()){
+		    return true;
+		}
+	    }
+	    removeQueen(r,c);
 	}
 	return false;
     }
