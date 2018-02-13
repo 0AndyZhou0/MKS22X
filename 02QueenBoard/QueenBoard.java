@@ -155,7 +155,9 @@ public class QueenBoard{
 	}
 	for(int c = 0;c < board.length;c++){
 	    if(addQueen(r,c)){
-	        solveHelper(r+1);
+	        if(countSolutionsHelper(r+1)){
+		    return true;
+		}
 		removeQueen(r,c);
 	    }
 	}
