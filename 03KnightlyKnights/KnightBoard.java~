@@ -1,0 +1,26 @@
+public class KnightBoard{
+    private int[][] board;
+
+    public KnightBoard(int startingRows,int startingCols){
+	
+    }
+    
+    //non square is required!
+    public String toString(){
+	return "";
+    }
+
+    public boolean solve(){
+	return true;
+    }
+
+    public int countSolutions(){
+	return 0;
+    }
+
+    private boolean solveH(int row ,int col, int level){
+	return true;
+    }
+    // level is the # of the knight
+
+}

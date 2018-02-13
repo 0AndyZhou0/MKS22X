@@ -1,0 +1,19 @@
+public class QueenBoardDriver{
+    public static void main(String[] args){
+	QueenBoard a = new QueenBoard(Integer.parseInt(args[0]));
+	int x = 0
+	do{
+	    if(args[0] = "solve"){
+		a.solve();
+		System.out.println(a);
+	    }
+	    if(args[0] = "count"){
+		a.countSolutions();
+		System.out.println(a);
+	    }
+	    x++;
+	}while{
+	    x <= 0;
+	}
+    }
+}

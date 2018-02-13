@@ -2,9 +2,8 @@ public class QueenBoard{
     public static void main(String[] args){
 	QueenBoard a = new QueenBoard(8);
 	System.out.println(a);
-	System.out.println(a.countSolutions());
-	System.out.println(a);
-	System.out.println(a.solutions);
+	//System.out.println(a.countSolutions());
+	//System.out.println(a);
     }
     private int[][] board;
     public int solutions;
@@ -103,7 +102,7 @@ public class QueenBoard{
 		}
 		//if(board[x][y] == 0){
 		else{
-		    s+=board[x][y]+" ";
+		    s+="_ ";
 		}
 		    //}
 		//if(board[x][y] > 0){
@@ -149,7 +148,7 @@ public class QueenBoard{
     }
     public boolean countSolutionsHelper(int r){
         if(r == board.length){
-	    System.out.println(this.toString());
+	    //System.out.println(this.toString());
 	    solutions++;
 	    return false;
 	}
