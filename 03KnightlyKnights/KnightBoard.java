@@ -1,6 +1,7 @@
+
 public class KnightBoard{
     public static void main(String[] args){
-        KnightBoard a = new KnightBoard(8,8);
+        KnightBoard a = new KnightBoard(7,7);
 	System.out.println(a.solve());
 	System.out.println(a);
     }
@@ -41,14 +42,13 @@ public class KnightBoard{
 	if(board[row][col] != 0){
 	    return false;
 	}
-	int[] xMoves = {-2,-2,-1,1,2,2,1,-1};
-	int[] yMoves = {1,-1,-2,-2,-1,1,2,2};
+	int[] moves = {-2,-2,-1,1,2,2,1,-1,1,-1,-2,-2,-1,1,2,2};
 	board[row][col] = level;
 	for(int i = 0;i<8;i++){
-	    int nextX = row + xMoves[i];
-	    int nextY = col + yMoves[i];
-	    if(nextX >= 0 && nextY >= 0 && nextX < board.length && nextY < board[0].length){
-		if(solveH(nextX,nextY,level+1)){
+	    int nextR = row + moves[i];
+	    int nextC = col + moves[i+8];
+	    if(nextR >= 0 && nextC >= 0 && nextR < board.length && nextC < board[0].length){
+		if(solveH(nextR,nextC,level+1)){
 		    return true;
 		}
 	    }
@@ -58,4 +58,28 @@ public class KnightBoard{
     }
     // level is the # of the knight
 
+    private int[] heuristic(int row,int col){
+	int[] moves = {-2,-2,-1,1,2,2,1,-1,1,-1,-2,-2,-1,1,2,2};
+	int[] moveGoodness = {8,8,8,8,8,8,8,8};
+        int[] moves2 = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	for(int i = 0;i<8;i++){
+	    int nextR = row + moves[i];
+	    int nextC = col + moves[i+8];
+	    
+	}
+	return moves;
+    }
+
+    private int checkMoves(int row,int col){
+	int[] moves = {-2,-2,-1,1,2,2,1,-1,1,-1,-2,-2,-1,1,2,2};
+	int numMoves = 0;
+	for(int i = 0;i<8;i++){
+	    int nextR = row + moves[i];
+	    int nextC = col + moves[i+8];
+	    if(board[nextR][nextC] == 0){
+		numMoves++;
+	    }
+	}
+	return numMoves;
+    }
 }
