@@ -1,7 +1,8 @@
 public class KnightBoard{
     public static void main(String[] args){
         KnightBoard a = new KnightBoard(8,8);
-	a.solve();
+	System.out.println(a.solve());
+	System.out.println(a);
     }
     private int[][] board;
 
@@ -17,7 +18,7 @@ public class KnightBoard{
 		if(board[x][y] < 10){
 		    grid += "_" + board[x][y] + " ";
 		}else{
-		    grid += "  " + board[x][y];
+		    grid += board[x][y] + " ";
 		}
 	    }
 	    grid += "\n";
@@ -34,8 +35,11 @@ public class KnightBoard{
     }
 
     private boolean solveH(int row ,int col, int level){
-	if(level == board.length * board[0].length){
+	if(level == board.length*board[0].length + 1){
 	    return true;
+	}
+	if(board[row][col] != 0){
+	    return false;
 	}
 	int[] xMoves = {-2,-2,-1,1,2,2,1,-1};
 	int[] yMoves = {1,-1,-2,-2,-1,1,2,2};
@@ -44,11 +48,13 @@ public class KnightBoard{
 	    int nextX = row + xMoves[i];
 	    int nextY = col + yMoves[i];
 	    if(nextX >= 0 && nextY >= 0 && nextX < board.length && nextY < board[0].length){
-		solveH(nextX,nextY,level+1);
+		if(solveH(nextX,nextY,level+1)){
+		    return true;
+		}
 	    }
 	}
 	board[row][col] = 0;
-	return true;
+	return false;
     }
     // level is the # of the knight
 
