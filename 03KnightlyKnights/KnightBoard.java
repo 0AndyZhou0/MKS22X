@@ -1,13 +1,21 @@
 
 public class KnightBoard{
     public static void main(String[] args){
-        KnightBoard a = new KnightBoard(9,9);
+        KnightBoard a = new KnightBoard(5,5);
 	System.out.println(a.solve());
+	System.out.println(a);
+	System.out.println(a.checkSol(0,0,1));
+	a.board[0][0] = 5;
+	System.out.println(a.checkSol(0,0,1));
 	System.out.println(a);
     }
     private int[][] board;
+    private int[] moves = {-2,-2,-1,1,2,2,1,-1,1,-1,-2,-2,-1,1,2,2};
 
     public KnightBoard(int startingRows,int startingCols){
+	if(startingRows <= 0 || startingCols <= 0){
+	    throw new IllegalStateException();
+	}
 	board = new int[startingRows][startingCols];
     }
     
@@ -42,7 +50,6 @@ public class KnightBoard{
 	if(board[row][col] != 0){
 	    return false;
 	}
-	int[] moves = {-2,-2,-1,1,2,2,1,-1,1,-1,-2,-2,-1,1,2,2};
 	int[] order = heuristic(row,col);
 	board[row][col] = level;
 	for(int i = 0;i<8;i++){
@@ -60,7 +67,6 @@ public class KnightBoard{
     // level is the # of the knight
 
     private int[] heuristic(int row,int col){
-	int[] moves = {-2,-2,-1,1,2,2,1,-1,1,-1,-2,-2,-1,1,2,2};
 	int[] moveGoodness = {9,9,9,9,9,9,9,9};
 	for(int i = 0;i < 8;i++){
 	    int nextR = row + moves[i];
@@ -73,7 +79,6 @@ public class KnightBoard{
     }
 
     private int checkMoves(int row,int col){
-	int[] moves = {-2,-2,-1,1,2,2,1,-1,1,-1,-2,-2,-1,1,2,2};
 	int numMoves = 0;
 	for(int i = 0;i<8;i++){
 	    int nextR = row + moves[i];
@@ -87,18 +92,37 @@ public class KnightBoard{
 	return numMoves;
     }
 
-    private int[] SortMin(int[] moves){
+    private int[] SortMin(int[] moveGoodness){
 	int[] order = new int[8];
 	for(int i = 0;i < 8;i++){
 	    int min = 0;
 	    for(int x = 0;x < 8;x++){
-		if(moves[x] < moves[min]){
+		if(moveGoodness[x] < moveGoodness[min]){
 		    min = x;
 		}
 	    }
 	    order[i] = min;
-	    moves[min] = 10;
+	    moveGoodness[min] = 10;
 	}
 	return order;
+    }
+
+    private boolean checkSol(int r,int c,int num){
+	if(board[r][c] != num){
+	    return false;
+	}
+	if(num == board.length*board[0].length){
+	    return true;
+	}
+	for(int i = 0;i<8;i++){
+	    int nextR = r + moves[i];
+	    int nextC = c + moves[i+8];
+	    if(nextR >= 0 && nextC >= 0 && nextR < board.length && nextC < board[0].length){
+	    	if(checkSol(nextR,nextC,num+1)){
+	    	    return true;	
+	    	}
+	    }
+	}
+	return false;
     }
 }
