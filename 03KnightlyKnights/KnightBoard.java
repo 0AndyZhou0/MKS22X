@@ -1,7 +1,7 @@
 
 public class KnightBoard{
     public static void main(String[] args){
-        KnightBoard a = new KnightBoard(7,7);
+        KnightBoard a = new KnightBoard(9,9);
 	System.out.println(a.solve());
 	System.out.println(a);
     }
@@ -43,14 +43,15 @@ public class KnightBoard{
 	    return false;
 	}
 	int[] moves = {-2,-2,-1,1,2,2,1,-1,1,-1,-2,-2,-1,1,2,2};
+	int[] order = heuristic(row,col);
 	board[row][col] = level;
 	for(int i = 0;i<8;i++){
-	    int nextR = row + moves[i];
-	    int nextC = col + moves[i+8];
+	    int nextR = row + moves[order[i]];
+	    int nextC = col + moves[order[i]+8];
 	    if(nextR >= 0 && nextC >= 0 && nextR < board.length && nextC < board[0].length){
-		if(solveH(nextR,nextC,level+1)){
-		    return true;
-		}
+	    	if(solveH(nextR,nextC,level+1)){
+	    	    return true;	
+	    	}
 	    }
 	}
 	board[row][col] = 0;
@@ -60,14 +61,15 @@ public class KnightBoard{
 
     private int[] heuristic(int row,int col){
 	int[] moves = {-2,-2,-1,1,2,2,1,-1,1,-1,-2,-2,-1,1,2,2};
-	int[] moveGoodness = {8,8,8,8,8,8,8,8};
-        int[] moves2 = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-	for(int i = 0;i<8;i++){
+	int[] moveGoodness = {9,9,9,9,9,9,9,9};
+	for(int i = 0;i < 8;i++){
 	    int nextR = row + moves[i];
 	    int nextC = col + moves[i+8];
-	    
+	    if(nextR >= 0 && nextC >= 0 && nextR < board.length && nextC < board[0].length){
+		moveGoodness[i] = checkMoves(nextR,nextC);
+	    }
 	}
-	return moves;
+	return SortMin(moveGoodness);
     }
 
     private int checkMoves(int row,int col){
@@ -76,10 +78,27 @@ public class KnightBoard{
 	for(int i = 0;i<8;i++){
 	    int nextR = row + moves[i];
 	    int nextC = col + moves[i+8];
-	    if(board[nextR][nextC] == 0){
-		numMoves++;
+	    if(nextR >= 0 && nextC >= 0 && nextR < board.length && nextC < board[0].length){
+		if(board[nextR][nextC] == 0){
+		    numMoves++;
+		}
 	    }
 	}
 	return numMoves;
+    }
+
+    private int[] SortMin(int[] moves){
+	int[] order = new int[8];
+	for(int i = 0;i < 8;i++){
+	    int min = 0;
+	    for(int x = 0;x < 8;x++){
+		if(moves[x] < moves[min]){
+		    min = x;
+		}
+	    }
+	    order[i] = min;
+	    moves[min] = 10;
+	}
+	return order;
     }
 }
