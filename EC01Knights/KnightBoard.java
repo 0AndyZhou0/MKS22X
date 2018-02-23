@@ -1,6 +1,6 @@
 public class KnightBoard{
     public static void main(String[] args){
-        KnightBoard a = new KnightBoard(5,5);
+        //KnightBoard a = new KnightBoard(5,5);
 	//93x93 is the largest board
 	//System.out.println(a);
 	//System.out.println(a.solve(0,0));
@@ -9,7 +9,7 @@ public class KnightBoard{
 	//a.board[0][0] = 5;
 	//System.out.println(a.checkSol(0,0,1));
 	//System.out.println(a);
-	System.out.println(a.countSolutions(0,0));
+	//System.out.println(a.countSolutions(0,0));
     }
     private int[][] board;
     private int[] moves = {-2,-2,-1,1,2,2,1,-1,1,-1,-2,-2,-1,1,2,2};
@@ -20,7 +20,7 @@ public class KnightBoard{
      */
     public KnightBoard(int startingRows,int startingCols){
 	if(startingRows <= 0 || startingCols <= 0){
-	    throw new IllegalStateException();
+	    throw new IllegalArgumentException();
 	}
 	board = new int[startingRows][startingCols];
     }
@@ -52,7 +52,7 @@ public class KnightBoard{
 	}
         return solveH(startingRow,startingCol,1);
     }
-
+    
     public boolean solveFast(int startingRow,int startingCol){
         if(checkZeros() && startingRow < 0 || startingCol < 0){
 	    throw new IllegalArgumentException();
@@ -72,8 +72,10 @@ public class KnightBoard{
 	for(int i = 0;i<8;i++){
 	    int nextR = row + moves[order[i]];
 	    int nextC = col + moves[order[i]+8];
-	    if(solveH(nextR,nextC,level+1)){
-		return true;	
+	    if(nextR >= 0 && nextC >= 0 && nextR < board.length && nextC < board[0].length){
+		if(solveH(nextR,nextC,level+1)){
+		    return true;	
+		}
 	    }
 	}
 	board[row][col] = 0;
@@ -158,10 +160,6 @@ public class KnightBoard{
     }
 
     private boolean countSolutionsH(int row ,int col, int level){
-        if(level == board.length*board[0].length + 1){
-	    solutions++;
-	    return false;
-	}
 	if(board[row][col] != 0){
 	    return false;
 	}
@@ -170,7 +168,13 @@ public class KnightBoard{
 	    int nextR = row + moves[i];
 	    int nextC = col + moves[i+8];
 	    if(nextR >= 0 && nextC >= 0 && nextR < board.length && nextC < board[0].length){
-	        countSolutionsH(nextR,nextC,level+1);
+	        if(level + 1 == board.length*board[0].length + 1){
+		    solutions++;
+		    board[row][col] = 0;
+		    return false;
+		}else{
+		    countSolutionsH(nextR,nextC,level+1);
+		}
 	    }
 	}
 	board[row][col] = 0;
