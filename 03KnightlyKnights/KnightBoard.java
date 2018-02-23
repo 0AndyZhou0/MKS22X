@@ -153,10 +153,6 @@ public class KnightBoard{
     }
 
     private boolean countSolutionsH(int row ,int col, int level){
-        if(level == board.length*board[0].length + 1){
-	    solutions++;
-	    return false;
-	}
 	if(board[row][col] != 0){
 	    return false;
 	}
@@ -165,7 +161,13 @@ public class KnightBoard{
 	    int nextR = row + moves[i];
 	    int nextC = col + moves[i+8];
 	    if(nextR >= 0 && nextC >= 0 && nextR < board.length && nextC < board[0].length){
-	        countSolutionsH(nextR,nextC,level+1);
+	        if(level + 1 == board.length*board[0].length + 1){
+		    solutions++;
+		    board[row][col] = 0;
+		    return false;
+		}else{
+		    countSolutionsH(nextR,nextC,level+1);
+		}
 	    }
 	}
 	board[row][col] = 0;
