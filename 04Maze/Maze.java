@@ -18,15 +18,24 @@ public class Maze{
       3. When the file is not found OR the file is invalid (not exactly 1 E and 1 S) then: print a meaningful error and exit the program.
     */
     public Maze(String filename){
-        File text = new File(filename);
-        Scanner inf = new Scanner(text);
-	int line = 0;
-        while(inf.hasNextLine()){
-            for(int i = 0;i < inf.nextLine().length();i++){
-		maze[line][i] = inf.next().charAt(0);
+	try{
+	    aMAZEingScouter(filename);
+	}catch(FileNotFoundException e){
+	    System.out.println(filename+".dat could not be found");
+	}
+	
+    }
+
+    public  void aMAZEingScouter(String filename) throws FileNotFoundException{
+	ArrayList<ArrayList<Char>> maze = new ArrayList<ArrayList<Char>>();
+	<ArrayList<Char>> line = new ArrayList<Char>();
+	File text = new File(filename);
+	Scanner inf = new Scanner(text);
+	while(inf.hasNextLine()){
+	    for(int i = 0;i < inf.nextLine().length();i++){
+		line.add(inf.next();
 	    }
-	    line++;
-        }  
+	}
     }
     
     private void wait(int millis){
