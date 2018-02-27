@@ -24,7 +24,7 @@ public class Maze{
         while(inf.hasNextLine()){
             for(int i = 0;i < inf.nextLine().length();i++){
 		maze[line][i] = inf.next().charAt(0);
-	    }  
+	    }
 	    line++;
         }  
     }
@@ -52,12 +52,18 @@ public class Maze{
       Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
     */
     public int solve(){
-            //find the location of the S. 
-
-            //erase the S
-
-            //and start solving at the location of the s.
-            //return solve(???,???);
+	int row = -1;
+	int col = -1;
+	for(int r = 0;r < maze.length;r++){
+	    for(int c = 0;c < maze[0].length;c++){
+		if(maze[r][c] == 'S'){
+		    row = r;
+		    col = c;
+		}
+	    }
+	}
+	maze[row][col] = ' ';
+        return solve(row,col);
     }
 
     /*
