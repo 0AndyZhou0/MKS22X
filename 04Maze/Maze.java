@@ -5,6 +5,10 @@ public class Maze{
     private char[][]maze;
     private boolean animate;//false by default
 
+    public static void main(String[] args){
+	System.out.println(0);
+    }
+
     /*Constructor loads a maze text file, and sets animate to false by default.
 
       1. The file contains a rectangular ascii maze, made with the following 4 characters:
@@ -17,23 +21,29 @@ public class Maze{
 
       3. When the file is not found OR the file is invalid (not exactly 1 E and 1 S) then: print a meaningful error and exit the program.
     */
-    public Maze(String filename){
+    public Maze(String filename) throws FileNotFoundException{
 	try{
 	    aMAZEingScouter(filename);
 	}catch(FileNotFoundException e){
 	    System.out.println(filename+".dat could not be found");
+	    System.exit(1);
 	}
-	
     }
 
     public  void aMAZEingScouter(String filename) throws FileNotFoundException{
-	ArrayList<ArrayList<Char>> maze = new ArrayList<ArrayList<Char>>();
-	<ArrayList<Char>> line = new ArrayList<Char>();
+	ArrayList<ArrayList<Character>> mazeTemp = new ArrayList<ArrayList<Character>>();
 	File text = new File(filename);
 	Scanner inf = new Scanner(text);
 	while(inf.hasNextLine()){
+	    ArrayList<Character> line = new ArrayList<Character>();
 	    for(int i = 0;i < inf.nextLine().length();i++){
-		line.add(inf.next();
+		line.add(inf.nextLine().charAt(i));
+	    }
+	    mazeTemp.add(line);
+	}
+	for(int x = 0;x < mazeTemp.size();x++){
+	    for(int y = 0;y < mazeTemp.get(0).size();y++){
+		maze[x][y] = mazeTemp.get(x).get(y);
 	    }
 	}
     }
