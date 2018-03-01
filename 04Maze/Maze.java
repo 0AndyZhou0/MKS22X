@@ -26,31 +26,12 @@ public class Maze{
 	try{
 	    aMAZEingScouter(filename);
 	}catch(FileNotFoundException e){
-<<<<<<< HEAD
 	    System.out.println(filename+".dat could not be found");
 	    System.exit(1);
-=======
-	    System.out.println(filename+" could not be found");
->>>>>>> 27f08a0b5cd44645c734e93eb9e7e0b3c41451d4
 	}
     }
 
     public  void aMAZEingScouter(String filename) throws FileNotFoundException{
-<<<<<<< HEAD
-	ArrayList<ArrayList<Character>> mazeTemp = new ArrayList<ArrayList<Character>>();
-	File text = new File(filename);
-	Scanner inf = new Scanner(text);
-	while(inf.hasNextLine()){
-	    ArrayList<Character> line = new ArrayList<Character>();
-	    for(int i = 0;i < inf.nextLine().length();i++){
-		line.add(inf.nextLine().charAt(i));
-	    }
-	    mazeTemp.add(line);
-	}
-	for(int x = 0;x < mazeTemp.size();x++){
-	    for(int y = 0;y < mazeTemp.get(0).size();y++){
-		maze[x][y] = mazeTemp.get(x).get(y);
-=======
 	ArrayList<char[]> mazeTemp = new ArrayList<>();
 	File text = new File(filename);
 	Scanner inf = new Scanner(text);
@@ -66,7 +47,6 @@ public class Maze{
         for(int r = 0;r < maze.length;r++){
 	    for(int c = 0;c < maze[0].length;c++){
 	        maze[r][c] = mazeTemp.get(r)[c];
->>>>>>> 27f08a0b5cd44645c734e93eb9e7e0b3c41451d4
 	    }
 	}
     }
