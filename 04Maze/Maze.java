@@ -125,25 +125,19 @@ public class Maze{
 	if(maze[row][col] == 'E'){
 	    return -1;
 	}
+	
 	int[] order = orderMoves(row,col);
         for(int i = 0;i < 4;i++){
-	    int r = row + moves[order[i]];
-	    int c = col + moves[order[i]+4];
+	    //int r = row + moves[order[i]];
+	    //int c = col + moves[order[i]+4];
+	    int r = row + moves[i];
+	    int c = col + moves[i+4];
 	    if(maze[r][c] != '@' && maze[r][c] != '#'){
-		if(maze[row][col] == '.'){
-		    maze[row][col] = '@';
-		}
-		if(maze[row][col] == ' '){
-		    maze[row][col] = '.';
-		}
+		maze[r][c] = '@';
 	        if(solve(r,c) == -1){
 		    return -1;
-		}
-		if(maze[row][col] == '.'){
-		    maze[row][col] = ' ';
-		}
-		if(maze[row][col] == '@'){
-		    maze[row][col] = '.';
+		}else{
+		    maze[r][c] = '.';
 		}
 	    }
 	}
@@ -178,7 +172,6 @@ public class Maze{
 	    }
 	    rater[min] = 4;
 	    order[i] = min;
-	    System.out.println(order[i]);
 	}
 	return order;
     }
