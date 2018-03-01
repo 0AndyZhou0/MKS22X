@@ -4,6 +4,7 @@ public class Maze{
 
     private char[][] maze;
     private boolean animate;//false by default
+    private int[] moves = {0,1,0,1,-1,0,1,0};
 
     /*Constructor loads a maze text file, and sets animate to false by default.
 
@@ -117,7 +118,23 @@ public class Maze{
             wait(20);
         }
 
-        //COMPLETE SOLVE
+	if(maze[row][col] == 'E'){
+	    return -1;
+	}
+
+        for(int i = 0;i < 4;i++){
+	    int r = row + moves[i];
+	    int c = col + moves[i+4];
+	    if(maze[r][c] != '@' && maze[r][c] != '#'){
+		if(maze[row][col] == '@'){
+		    maze[row][col] = '.';
+		}
+		if(maze[row][col] == ' '){
+		    maze[row][col] = '@';
+		}
+		return solve(r,c);
+	    }
+	}
         return -1; //so it compiles
     }
 

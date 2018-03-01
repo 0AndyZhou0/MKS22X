@@ -8,7 +8,7 @@ public class Driver{
 
 	//true animates the maze.
 	//f.setAnimate(true);
-	//f.solve();
+	f.solve();
 	
 	System.out.println(f);
     }
