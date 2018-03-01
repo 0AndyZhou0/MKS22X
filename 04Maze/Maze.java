@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 public class Maze{
 
-    private char[][]maze;
+    private char[][] maze;
     private boolean animate;//false by default
 
     /*Constructor loads a maze text file, and sets animate to false by default.
@@ -21,19 +21,27 @@ public class Maze{
 	try{
 	    aMAZEingScouter(filename);
 	}catch(FileNotFoundException e){
-	    System.out.println(filename+".dat could not be found");
+	    System.out.println(filename+" could not be found");
 	}
 	
     }
 
     public  void aMAZEingScouter(String filename) throws FileNotFoundException{
-	ArrayList<ArrayList<Char>> maze = new ArrayList<ArrayList<Char>>();
-	<ArrayList<Char>> line = new ArrayList<Char>();
+	ArrayList<char[]> mazeTemp = new ArrayList<>();
 	File text = new File(filename);
 	Scanner inf = new Scanner(text);
 	while(inf.hasNextLine()){
-	    for(int i = 0;i < inf.nextLine().length();i++){
-		line.add(inf.next();
+	    String temp = inf.nextLine();
+	    char[] line = new char[temp.length()];
+	    for(int i = 0;i < line.length;i++){
+		line[i] = temp.charAt(i);
+	    }
+	    mazeTemp.add(line);
+	}
+	maze = new char[mazeTemp.size()][mazeTemp.get(0).length];
+        for(int r = 0;r < maze.length;r++){
+	    for(int c = 0;c < maze[0].length;c++){
+	        maze[r][c] = mazeTemp.get(r)[c];
 	    }
 	}
     }
@@ -48,6 +56,17 @@ public class Maze{
 
     public void setAnimate(boolean b){
         animate = b;
+    }
+
+    public String toString(){
+	String board = "";
+	for(int r = 0;r < maze.length;r++){
+	    for(int c = 0;c < maze[0].length;c++){
+		board += maze[r][c];
+	    }
+	    board += "\n";
+	}
+	return board;
     }
 
     public void clearTerminal(){
