@@ -4,7 +4,7 @@ public class Maze{
 
     private char[][] maze;
     private boolean animate;//false by default
-    private int[] moves = {0,1,0,1,-1,0,1,0};
+    private int[] moves = {0,1,0,-1,-1,0,1,0};
 
     /*Constructor loads a maze text file, and sets animate to false by default.
 
@@ -121,21 +121,62 @@ public class Maze{
 	if(maze[row][col] == 'E'){
 	    return -1;
 	}
-
+	int[] order = orderMoves(row,col);
         for(int i = 0;i < 4;i++){
-	    int r = row + moves[i];
-	    int c = col + moves[i+4];
+	    int r = row + moves[order[i]];
+	    int c = col + moves[order[i]+4];
 	    if(maze[r][c] != '@' && maze[r][c] != '#'){
+		if(maze[row][col] == '.'){
+		    maze[row][col] = '@';
+		}
+		if(maze[row][col] == ' '){
+		    maze[row][col] = '.';
+		}
+	        if(solve(r,c) == -1){
+		    return -1;
+		}
+		if(maze[row][col] == '.'){
+		    maze[row][col] = ' ';
+		}
 		if(maze[row][col] == '@'){
 		    maze[row][col] = '.';
 		}
-		if(maze[row][col] == ' '){
-		    maze[row][col] = '@';
-		}
-		return solve(r,c);
 	    }
 	}
-        return -1; //so it compiles
+        return 0; //so it compiles
+    }
+
+    private int[] orderMoves(int row,int col){
+	int[] order = new int[4];
+	int[] rater = new int[4];
+	for(int i = 0;i < 4;i++){
+	    int r = row + moves[i];
+	    int c = col + moves[i+4];
+	    if(maze[row][col] == ' '){
+		rater[i] = 0;
+	    }
+	    if(maze[row][col] == '.'){
+	        rater[i] = 1;
+	    }
+	    if(maze[row][col] == '@'){
+		rater[i] = 2;
+	    }
+	    if(maze[row][col] == '#'){
+	        rater[i] = 3;
+	    }
+	}
+	for(int i = 0;i < 4;i++){
+	    int min = 0;
+	    for(int x = 0;x < 4;x++){
+		if(rater[x] < rater[min]){
+		    min = x;
+		}
+	    }
+	    rater[min] = 4;
+	    order[i] = min;
+	    System.out.println(order[i]);
+	}
+	return order;
     }
 
 }
