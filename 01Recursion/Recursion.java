@@ -15,7 +15,6 @@ public class Recursion{
 	//System.out.println(sqrt(4));
 	//System.out.println(sqrt(-4));
 	//System.out.println(isPossibleSum(13,56000));
-        boolean a = queenProblem();
     }
     public static int fact(int n){
 	if(n < 0){
@@ -55,40 +54,6 @@ public class Recursion{
 	}
 	return guess;
     }
-
-    public static boolean queenProblem(){
-	int[][] pieces = new int[9][9];
-	return queenProblemHelper(pieces,0,0);
-    }
-    public static boolean queenProblemHelper(int[][] pieces,int x,int y){
-	if(x == 8 && y == 8){
-	    for(int row = 0;row < 9;row++){
-		String line = "";
-		for(int col = 0;col < 9;col++){
-		    line += pieces[row][col] + " ";
-		}
-		System.out.println(line);
-	    }
-	    return false;
-	}
-        if(pieces[x][y] != 0){
-	    if(y == 8){
-		y = -1;
-		x++;
-	    }
-	    return queenProblemHelper(pieces,x,y++);
-	}else{
-	    for(int i = 0;i < 9;i++){
-		pieces[x][i]++;
-		pieces[i][y]++;
-		pieces[x][y] = 1;
-	    }
-	    if(y == 8){
-		y = -1;
-		x++;
-	    }
-	    return queenProblemHelper(pieces,x,y++);
-	}
     public static boolean isPossibleSum(int n,int target){
 	if(target == 0){
 	    return true;

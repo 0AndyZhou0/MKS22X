@@ -2,8 +2,9 @@ import java.util.*;
 import java.io.*;
 public class Maze{
 
-    private char[][]maze;
+    private char[][] maze;
     private boolean animate;//false by default
+    private int[] moves = {0,1,0,-1,-1,0,1,0};
 
     public static void main(String[] args){
 	System.out.println(0);
@@ -25,12 +26,17 @@ public class Maze{
 	try{
 	    aMAZEingScouter(filename);
 	}catch(FileNotFoundException e){
+<<<<<<< HEAD
 	    System.out.println(filename+".dat could not be found");
 	    System.exit(1);
+=======
+	    System.out.println(filename+" could not be found");
+>>>>>>> 27f08a0b5cd44645c734e93eb9e7e0b3c41451d4
 	}
     }
 
     public  void aMAZEingScouter(String filename) throws FileNotFoundException{
+<<<<<<< HEAD
 	ArrayList<ArrayList<Character>> mazeTemp = new ArrayList<ArrayList<Character>>();
 	File text = new File(filename);
 	Scanner inf = new Scanner(text);
@@ -44,6 +50,23 @@ public class Maze{
 	for(int x = 0;x < mazeTemp.size();x++){
 	    for(int y = 0;y < mazeTemp.get(0).size();y++){
 		maze[x][y] = mazeTemp.get(x).get(y);
+=======
+	ArrayList<char[]> mazeTemp = new ArrayList<>();
+	File text = new File(filename);
+	Scanner inf = new Scanner(text);
+	while(inf.hasNextLine()){
+	    String temp = inf.nextLine();
+	    char[] line = new char[temp.length()];
+	    for(int i = 0;i < line.length;i++){
+		line[i] = temp.charAt(i);
+	    }
+	    mazeTemp.add(line);
+	}
+	maze = new char[mazeTemp.size()][mazeTemp.get(0).length];
+        for(int r = 0;r < maze.length;r++){
+	    for(int c = 0;c < maze[0].length;c++){
+	        maze[r][c] = mazeTemp.get(r)[c];
+>>>>>>> 27f08a0b5cd44645c734e93eb9e7e0b3c41451d4
 	    }
 	}
     }
@@ -58,6 +81,17 @@ public class Maze{
 
     public void setAnimate(boolean b){
         animate = b;
+    }
+
+    public String toString(){
+	String board = "";
+	for(int r = 0;r < maze.length;r++){
+	    for(int c = 0;c < maze[0].length;c++){
+		board += maze[r][c];
+	    }
+	    board += "\n";
+	}
+	return board;
     }
 
     public void clearTerminal(){
@@ -108,8 +142,65 @@ public class Maze{
             wait(20);
         }
 
-        //COMPLETE SOLVE
-        return -1; //so it compiles
+	if(maze[row][col] == 'E'){
+	    return -1;
+	}
+	int[] order = orderMoves(row,col);
+        for(int i = 0;i < 4;i++){
+	    int r = row + moves[order[i]];
+	    int c = col + moves[order[i]+4];
+	    if(maze[r][c] != '@' && maze[r][c] != '#'){
+		if(maze[row][col] == '.'){
+		    maze[row][col] = '@';
+		}
+		if(maze[row][col] == ' '){
+		    maze[row][col] = '.';
+		}
+	        if(solve(r,c) == -1){
+		    return -1;
+		}
+		if(maze[row][col] == '.'){
+		    maze[row][col] = ' ';
+		}
+		if(maze[row][col] == '@'){
+		    maze[row][col] = '.';
+		}
+	    }
+	}
+        return 0; //so it compiles
+    }
+
+    private int[] orderMoves(int row,int col){
+	int[] order = new int[4];
+	int[] rater = new int[4];
+	for(int i = 0;i < 4;i++){
+	    int r = row + moves[i];
+	    int c = col + moves[i+4];
+	    if(maze[row][col] == ' '){
+		rater[i] = 0;
+	    }
+	    if(maze[row][col] == '.'){
+	        rater[i] = 1;
+	    }
+	    if(maze[row][col] == '@'){
+		rater[i] = 2;
+	    }
+	    if(maze[row][col] == '#'){
+	        rater[i] = 3;
+	    }
+	}
+	for(int i = 0;i < 4;i++){
+	    int min = 0;
+	    for(int x = 0;x < 4;x++){
+		if(rater[x] < rater[min]){
+		    min = x;
+		}
+	    }
+	    rater[min] = 4;
+	    order[i] = min;
+	    System.out.println(order[i]);
+	}
+	return order;
     }
 
 }
