@@ -128,18 +128,18 @@ public class Maze{
 	    int c = col + moves[i+4];
 	    if(maze[r][c] != '@' && maze[r][c] != '#' && maze[r][c] != '.'){
 		if(maze[r][c] == 'E'){
-		    numMoves = count + 3;
-		    return numMoves - 1;
+		    numMoves = count + 1;
+		    return numMoves;
 		}
 		maze[r][c] = '@';
-	        if(solve(r,c,count + 1) == numMoves -1){
-		    return numMoves -1;
+	        if(solve(r,c,count + 1) == numMoves){
+		    return numMoves;
 		}else{
 		    maze[r][c] = '.';
 		}
 	    }
 	}
-        return 0; //so it compiles
+        return -1; //so it compiles
     }
 
 }
