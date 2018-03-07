@@ -117,11 +117,11 @@ public class Maze{
     private int solve(int row, int col, int count){ //you can add more parameters since this is private
 
         //automatic animation! You are welcome.
-	// if(animate){
-	//     clearTerminal();
-	//     System.out.println(this);
-	//     wait(20);
-        // }
+	if(animate){
+	    clearTerminal();
+	    System.out.println(this);
+	    wait(20);
+        }
 
         for(int i = 0;i < 4;i++){
 	    int r = row + moves[i];
