@@ -9,13 +9,31 @@ public class USACO{
     
 	    
     public static int bronze(String filename){
-	int row, col, elevation;
-	int numInstructions;
-	
+	int elevation, numInstructions;
+	int[][] instructions;
+	int[][] grid;
 	try{
 	    File f = new File(filename);
 	    Scanner s = new Scanner(f);
-	    
+	    String temp = s.nextLine();
+	    String[] nums = temp.split(" ");
+	    grid = new int[Integer.parseInt(nums[0])][Integer.parseInt(nums[1])];
+	    elevation = Integer.parseInt(nums[2]);
+	    instructions = new int[Integer.parseInt(nums[3])][3];
+	    for(int r = 0;r < grid.length;r++){
+		temp = s.nextLine();
+		String[] line = temp.split(" ");
+		for(int c = 0;c < grid[0].length;c++){
+		    grid[r][c] = Integer.parseInt(line[c]);
+		}
+	    }
+	    for(int r = 0;r < instructions.length;r++){
+		temp = s.nextLine();
+		String[] line = temp.split(" ");
+		for(int c = 0;c < line.length;c++){
+		    instructions[r][c] = Integer.parseInt(line[c]);
+		}
+	    }
 	}catch(FileNotFoundException e){
 	    System.exit(1);
 	}
@@ -33,22 +51,18 @@ public class USACO{
 	    String[] nums = temp.split(" ");
 	    grid = new char[Integer.parseInt(nums[0])][Integer.parseInt(nums[1])];
 	    time = Integer.parseInt(nums[2]);
-	    int i = 0;
-	    while(s.hasNextLine()){
+	    for(int r = 0;r < grid.length;r++){
 		temp = s.nextLine();
-		if(s.hasNextLine()){
-		    for(int x = 0;x < temp.length();x++){
-			grid[i][x] = temp.charAt(x);
-		    }
-		}else{
-		    String[] line = temp.split(" ");
-		    start1 = Integer.parseInt(line[0]);
-		    end1 = Integer.parseInt(line[1]);
-		    start2 = Integer.parseInt(line[2]);
-		    end2 = Integer.parseInt(line[3]);
-		}
-		i++;
+		for(int c = 0;c < temp.length();c++){
+		    grid[r][c] = temp.charAt(c);
+		} 
 	    }
+	    temp = s.nextLine();
+	    String[] line = temp.split(" ");
+	    start1 = Integer.parseInt(line[0]);
+	    end1 = Integer.parseInt(line[1]);
+	    start2 = Integer.parseInt(line[2]);
+	    end2 = Integer.parseInt(line[3]);
 	}catch(FileNotFoundException e){
 	    System.exit(1);
 	}
