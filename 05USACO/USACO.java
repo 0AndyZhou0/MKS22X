@@ -3,7 +3,6 @@ import java.io.*;
 public class USACO{
     
     public static void main(String[] args){
-	/*
         for (int i = 1; i < 11; i ++){
 	    String file = "makelake/makelake." + i; // Remove the "makelake/" if the test files are in the same directory
 	    int ans = getAnswer(file + ".out");
@@ -14,18 +13,17 @@ public class USACO{
 	    System.out.println("Answer: " + ans);
 	    System.out.println("Correct? " + (ans == ansU));
 	}
-	*/
 
-	for (int i = 1; i < 11; i ++){
-	    String file = "ctravel/ctravel." + i; // Remove the "ctravel/" if the test files are in the same directory
-	    int ans = getAnswer(file + ".out");
+	// for (int i = 1; i < 11; i ++){
+	//     String file = "ctravel/ctravel." + i; // Remove the "ctravel/" if the test files are in the same directory
+	//     int ans = getAnswer(file + ".out");
 	    
-	    int ansU = USACO.silver(file + ".in");
+	//     int ansU = USACO.silver(file + ".in");
 	    
-	    System.out.println("Your Answer: " + ansU);
-	    System.out.println("Answer: " + ans);
-	    System.out.println("Correct? " + (ans == ansU));
-	}
+	//     System.out.println("Your Answer: " + ansU);
+	//     System.out.println("Answer: " + ans);
+	//     System.out.println("Correct? " + (ans == ansU));
+	// }
 	//System.out.println(USACO.silver("ctravel/ctravel.1.in"));
     }
 
@@ -44,7 +42,7 @@ public class USACO{
     }
 	    
     public static int bronze(String filename){
-	int elevation, numInstructions;
+	int elevation;
 	int[][] instructions;
 	int[][] grid;
 	try{
@@ -69,6 +67,40 @@ public class USACO{
 		    instructions[r][c] = Integer.parseInt(line[c]);
 		}
 	    }
+	    int[] moves = {-1,-1,-1,0,0,1,1,1,0,1,0,-1,1,-1,1,0,-1,0};
+	    for(int i = 0;i < instructions.length;i++){
+		int row = instructions[i][0];
+		int col = instructions[i][1];
+		int tallest = grid[row][col];
+		for(int x = 0;x < 9;x++){
+		    int nextR = row + moves[x];
+		    int nextC = col + moves[x+9];
+		    if(nextR >= 0 && nextR < grid.length && nextC >= 0 && nextC < grid[0].length){
+			if(grid[nextR][nextC] > tallest){
+			    tallest = grid[nextR][nextC];
+			}
+		    }
+		}
+		for(int x = 0;x < 9;x++){
+		    int nextR = row + moves[x];
+		    int nextC = col + moves[x+9];
+		    if(nextR >= 0 && nextR < grid.length && nextC >= 0 && nextC < grid[0].length){
+			if(grid[nextR][nextC] > tallest - instructions[i][2]){
+			    grid[nextR][nextC] = tallest - instructions[i][2];
+			}
+		    }
+		}
+	    }
+	    int sum = 0;
+	    for(int r = 0;r < grid.length;r++){
+		for(int c = 0;c < grid[0].length;c++){
+		    if(elevation > grid[r][c]){
+			sum += elevation - grid[r][c];
+		    }
+		}
+	    }
+	    System.out.println(sum);
+	    return sum * 72 * 72;
 	}catch(FileNotFoundException e){
 	    System.exit(1);
 	}
