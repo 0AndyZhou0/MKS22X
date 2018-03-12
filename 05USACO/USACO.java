@@ -3,10 +3,45 @@ import java.io.*;
 public class USACO{
     
     public static void main(String[] args){
-	System.out.println(USACO.bronze("makelake/makelake.1.in"));
-	System.out.println(USACO.silver("ctravel/ctravel.1.in"));
+	/*
+        for (int i = 1; i < 11; i ++){
+	    String file = "makelake/makelake." + i; // Remove the "makelake/" if the test files are in the same directory
+	    int ans = getAnswer(file + ".out");
+	    
+	    int ansU = USACO.bronze(file + ".in");
+	    
+	    System.out.println("Your Answer: " + ansU);
+	    System.out.println("Answer: " + ans);
+	    System.out.println("Correct? " + (ans == ansU));
+	}
+	*/
+
+	for (int i = 1; i < 11; i ++){
+	    String file = "ctravel/ctravel." + i; // Remove the "ctravel/" if the test files are in the same directory
+	    int ans = getAnswer(file + ".out");
+	    
+	    int ansU = USACO.silver(file + ".in");
+	    
+	    System.out.println("Your Answer: " + ansU);
+	    System.out.println("Answer: " + ans);
+	    System.out.println("Correct? " + (ans == ansU));
+	}
+	//System.out.println(USACO.silver("ctravel/ctravel.1.in"));
     }
-    
+
+    public static int getAnswer(String filename){
+	try{
+	    File f = new File(filename);
+	    Scanner s = new Scanner(f);
+	    
+	    String inty = s.nextLine();
+	    return Integer.parseInt(inty);
+	    
+	}catch (FileNotFoundException e){
+	    System.out.println("FILE!");
+	}
+	return 0;
+    }
 	    
     public static int bronze(String filename){
 	int elevation, numInstructions;
@@ -41,9 +76,9 @@ public class USACO{
     }
     public static int silver(String filename){
 	char[][] grid;
-	int start1, end1, start2, end2, time;
+	int start1, start2, end1, end2, time;
 	int[][] numWays;//current number of ways to get to each space.
-	int[][] tempGrid;
+	int[][] numGrid, tempGrid;
 	try{
 	    File f = new File(filename);
 	    Scanner s = new Scanner(f);
@@ -59,13 +94,43 @@ public class USACO{
 	    }
 	    temp = s.nextLine();
 	    String[] line = temp.split(" ");
-	    start1 = Integer.parseInt(line[0]);
-	    end1 = Integer.parseInt(line[1]);
-	    start2 = Integer.parseInt(line[2]);
-	    end2 = Integer.parseInt(line[3]);
+	    start1 = Integer.parseInt(line[0]) - 1;
+	    start2 = Integer.parseInt(line[1]) - 1;
+	    end1 = Integer.parseInt(line[2]) - 1;
+	    end2 = Integer.parseInt(line[3]) - 1;
+	    numGrid = new int[grid.length][grid[0].length];
+	    tempGrid = new int[grid.length][grid[0].length];
+	    numGrid[start1][start2] = 1;
+	    return silverH(grid, numGrid, tempGrid, end1, end2, time, 0);
 	}catch(FileNotFoundException e){
 	    System.exit(1);
 	}
 	return 0;
+    }
+    
+    private static int silverH(char[][] grid, int[][] numGrid, int[][] temp, int end1, int end2, int endtime, int time){
+	if(time == endtime){
+	    return numGrid[end1][end2];
+	}
+	for(int r = 0;r < grid.length;r++){
+	    for(int c = 0;c < grid[0].length;c++){
+		temp[r][c] = 0;
+	    }
+	}
+	int[] moves = {0,0,1,-1,1,-1,0,0};
+	for(int r = 0;r < grid.length;r++){
+	    for(int c = 0;c < grid[0].length;c++){
+		if(numGrid[r][c] > 0){
+		    for(int i = 0;i < 4;i++){
+			int nextR = r + moves[i];
+			int nextC = c + moves[i+4];
+			if(nextR >= 0 && nextR < numGrid.length && nextC >= 0 && nextC < numGrid[0].length && grid[nextR][nextC] != '*'){
+			    temp[nextR][nextC] += numGrid[r][c];
+			}
+		    }
+		}
+	    }
+	}
+	return silverH(grid,temp,numGrid,end1,end2,endtime,time+1);
     }
 }
