@@ -1,8 +1,8 @@
 public class sort{
     public static void main(String[] args){
-	int[] ary = {4,1,3,5,3,2,5};
+	int[] ary = {999,999,999,4,1,0,3,2,999,999,999};
 	print(ary);
-	partition(ary);
+	partitionAtZero(ary);
         print(ary);
     }
 
@@ -15,13 +15,19 @@ public class sort{
       }
       }
     */
-	
+
     public static void partition(int[] nums){
+	int index = (int)(Math.random() * nums.length);
+	swap(nums,index,0);
+	partitionAtZero(nums);
+    }
+    
+    public static void partitionAtZero(int[] nums){
 	int partition = nums[0];
 	int x = nums.length - 1;
 	for(int i = 1;i < x;i++){
-	    if(nums[i] > partition){
-		while(nums[x] > partition && x > i){
+	    if(nums[i] >= partition){
+		while(nums[x] >= partition && x > i){
 		    x--;
 		}
 		swap(nums,i,x);
@@ -30,7 +36,6 @@ public class sort{
 	for(int i = 1;i < x;i++){
 	    swap(nums,i,i-1);
 	}
-	nums[x - 1] = partition;
     }
     
     public static void swap(int[]nums, int num1, int num2){
@@ -44,6 +49,6 @@ public class sort{
 	for(int i = 0;i < ary.length;i++){
 	    line += ary[i] + ",";
 	}
-        System.out.println(line + "]");
+        System.out.println(line.substring(0,line.length()-1) + "]");
     }
 }
