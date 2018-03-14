@@ -1,10 +1,15 @@
 public class sort{
     public static void main(String[] args){
 	//int[] ary = {999,999,999,4,1,0,3,2,999,999,999};
-	int[] ary = {0,999,999,999,1999,0,3,2,999,999,999};
+	//int[] ary = {0,999,999,999,1999,0,3,2,999,999,999};
+	int[] ary = {0,1,2,3,4,5,6,1,2,4,5};
+	//int[] ary = {0,0,0,0,0,1,1,1,1,1};
 	print(ary);
 	//partitionBefore(ary,2);
-        System.out.println(findKthSmallest(ary,4));
+        // for(int i = 0;i < ary.length;i++){
+	//     System.out.println(quickselect(ary,i+1));
+	// }
+	System.out.println(quickselect(ary,1));
         print(ary);
     }
 
@@ -34,18 +39,19 @@ public class sort{
     public static int partition(int[] nums){
 	int index = (int)(Math.random() * nums.length);
 	swap(nums,index,0);
-	return partitionAtZero(nums);
-    }
-    
-    public static int partitionAtZero(int[] nums){
 	int partition = nums[0];
 	int x = nums.length - 1;
+	int copies = 1;
 	for(int i = 1;i < x;i++){
-	    if(nums[i] >= partition){
+	    if(nums[i] > partition){
 		while(nums[x] >= partition && x > i){
 		    x--;
 		}
 		swap(nums,i,x);
+	    }
+	    if(nums[i] == partition){
+		swap(nums,copies,i);
+		copies++;
 	    }
 	}
 	for(int i = 1;i < x;i++){
@@ -68,16 +74,16 @@ public class sort{
         System.out.println(line.substring(0,line.length()-1) + "]");
     }
 
-    public static int findKthSmallest(int[] nums, int k){
+    public static int quickselect(int[] nums, int k){
 	int index = partition(nums);
 	return findKH(nums,k,index);
     }
 
     public static int findKH(int[]nums, int k, int index){
-	int index2 = 0;
 	if(index == k - 1){
 	    return nums[index];
 	}
+	int index2 = 0;
 	if(index < k - 1){
 	    index2 = partitionAfter(nums,index);
 	}else{
