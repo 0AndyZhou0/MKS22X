@@ -26,16 +26,15 @@ public class quick{
 	System.out.println(index);
 	swap(nums,index,min);
 	int partition = nums[min];
-	int x = max;
-	int copies = 1;
+	//int copies = 1;
 	min++;
-	while(min < x){
+	while(min < max){
 	    if(nums[min] > partition){
-		while(nums[x] >= partition && x > min){
+		while(nums[max] >= partition && max > min){
 		    print(nums);
-		    x--;
+		    max--;
 		}
-		swap(nums,min,x);
+		swap(nums,min,max);
 	    }
 	    // if(nums[min] == partition){
 	    // 	swap(nums,copies,min);
@@ -43,17 +42,13 @@ public class quick{
 	    // }
 	    min++;
 	}
-	// for(int i = min + 1;i < x;i++){
-	//     swap(nums,i,i-1);
-	// }
 	print(nums);
-	System.out.println(nums[x]);
-	if(nums[min] > nums[x-1]){
-	    swap(nums,min,x-1);
+	if(nums[min] > nums[max-1]){
+	    swap(nums,min,max-1);
 	}else{
-	    swap(nums,min,x-2);
+	    swap(nums,min,max-2);
 	}
-	return x - 1;
+	return max - 1;
     }
     
     public static void swap(int[]nums, int num1, int num2){
