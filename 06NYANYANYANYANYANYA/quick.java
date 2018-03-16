@@ -2,12 +2,13 @@ public class quick{
     public static void main(String[] args){
 	//int[] ary = {999,999,999,4,1,0,3,2,999,999,999};
 	//int[] ary = {0,999,999,999,1999,0,3,2,999,999,999};
-	//int[] ary = {0,1,2,3,4,5,6,1,2,4,5};
+	int[] ary = {0,1,2,3,4,5,6,1,2,4,5};
 	//int[] ary = {0,0,0,0,0,1,1,1,1,1};
-	int[] ary = {0,0,0,0,0,0,0,0,0,0,0,0,0};
+	//int[] ary = {0,0,0,0,0,0,0,0,0,0,0,0,0};
 	print(ary);
 	//System.out.println(partition(ary,0,ary.length-1));
-	System.out.println(quickselect(ary,5));
+	//System.out.println(quickselect(ary,5));
+	quickSort(ary);
         print(ary);
     }
 
@@ -84,6 +85,20 @@ public class quick{
 	}else{
 	    index2 = partition(nums,0,index-1);
 	    return findKH(nums,k,index2);
+	}
+    }
+
+    public static void quickSort(int[]nums){
+	int pivot = partition(nums,0,nums.length-1);
+	quickSortH(nums,pivot+1,nums.length-1);
+	quickSortH(nums,0,pivot-1);
+    }
+    
+    public static void quickSortH(int[]nums,int min,int max){
+	if(max - min > 0){
+	    int pivot = partition(nums,min,max);
+	    quickSortH(nums,pivot+1,max);
+	    quickSortH(nums,min,pivot-1);
 	}
     }
 }
