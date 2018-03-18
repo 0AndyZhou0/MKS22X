@@ -1,15 +1,16 @@
-public class quick{
+public class Quick{
     public static void main(String[] args){
 	//int[] ary = {999,999,999,4,1,0,3,2,999,999,999};
 	//int[] ary = {0,999,999,999,1999,0,3,2,999,999,999};
-	int[] ary = {0,1,2,3,4,5,6,1,2,4,5};
+	//int[] ary = {0,1,2,3,4,5,6,1,2,4,5};
 	//int[] ary = {0,0,0,0,0,1,1,1,1,1};
 	//int[] ary = {0,0,0,0,0,0,0,0,0,0,0,0,0};
-	print(ary);
+	//int[] ary = {1,2,0};
+	//print(ary);
 	//System.out.println(partition(ary,0,ary.length-1));
 	//System.out.println(quickselect(ary,5));
-	quickSort(ary);
-        print(ary);
+	//quickSort(ary);
+        //print(ary);
     }
 
     /*
@@ -25,34 +26,27 @@ public class quick{
     
     
     public static int partition(int[] nums, int min, int max){
-	int index = (int)(Math.random() * (max - min + 1)) + min;
-	System.out.println(index);
-	swap(nums,index,min);
+        swap(nums,(int)(Math.random() * (max - min + 1)) + min,min);
 	int partition = nums[min];
-	int copies = 1;
-	for(int i = min + 1;i < max;i++){
-	    print(nums);
-	    if(nums[i] >= partition){
-		while(nums[max] > partition && max > i){
-		    print(nums);
-		    max--;
-		}
-		swap(nums,i,max);
+	//int copies = 1;
+	int i = min;
+	int j = min + 1;
+	while(j < max + 1){
+	    // if(nums[i] > partition){
+	    // 	while(nums[max] > partition && max >= i){
+	    // 	    System.out.println(max);
+	    // 	    max--;
+	    // 	}
+	    // 	swap(nums,i,max);
+	    // }
+	    if(nums[j] <= partition){
+		i++;
+		swap(nums,i,j);
 	    }
-	     if(nums[i] == partition){
-	     	swap(nums,copies,i);
-	     	copies++;
-	     }
-	}
-	for(int i = min + 1;i < max;i++){
-	    swap(nums,i,max);
-	}
-	if(nums[min] >= nums[max]){
-	    swap(nums,min,max);
-	}else{
-	    swap(nums,min,max-1);
-	}
-	return max;
+	    j++;
+        }
+	swap(nums,i,min);
+	return i;
     }
     
     public static void swap(int[]nums, int num1, int num2){
@@ -95,7 +89,7 @@ public class quick{
     }
     
     public static void quickSortH(int[]nums,int min,int max){
-	if(max - min > 0){
+	if(max > min){
 	    int pivot = partition(nums,min,max);
 	    quickSortH(nums,pivot+1,max);
 	    quickSortH(nums,min,pivot-1);

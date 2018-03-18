@@ -1,15 +1,15 @@
-public class quick{
+public class Quick{
     public static void main(String[] args){
 	//int[] ary = {999,999,999,4,1,0,3,2,999,999,999};
 	//int[] ary = {0,999,999,999,1999,0,3,2,999,999,999};
 	int[] ary = {0,1,2,3,4,5,6,1,2,4,5};
 	//int[] ary = {0,0,0,0,0,1,1,1,1,1};
+	//int[] ary = {0,0,0,0,0,0,0,0,0,0,0,0,0};
+	//int[] ary = {1,2,0};
 	print(ary);
-	//partitionBefore(ary,2);
-        // for(int i = 0;i < ary.length;i++){
-	//     System.out.println(quickselect(ary,i+1));
-	// }
-	System.out.println(quickselect(ary,1));
+	//System.out.println(partition(ary,0,0));
+	//System.out.println(quickselect(ary,5));
+	quickSort(ary);
         print(ary);
     }
 
@@ -24,40 +24,46 @@ public class quick{
     */
 
     
-    public static int partitionAfter(int[] nums, int n){
-	int index = (int)(Math.random() * (nums.length - n - 1) + n + 1);
-	swap(nums,index,0);
-	return partitionAtZero(nums);
-    }
-
-     public static int partitionBefore(int[] nums, int n){
-	int index = (int)(Math.random() * n);
-	swap(nums,index,0);
-	return partitionAtZero(nums);
-    }
     
-    public static int partition(int[] nums){
-	int index = (int)(Math.random() * nums.length);
-	swap(nums,index,0);
-	int partition = nums[0];
-	int x = nums.length - 1;
+    public static int partition(int[] nums, int min, int max){
+	int index = (int)(Math.random() * (max - min + 1)) + min;
+	System.out.println(index);
+	swap(nums,index,min);
+	int partition = nums[min];
 	int copies = 1;
-	for(int i = 1;i < x;i++){
+	for(int i = min + 1;i < max;i++){
+	    print(nums);
 	    if(nums[i] > partition){
-		while(nums[x] >= partition && x > i){
-		    x--;
+		while(nums[max] > partition && max > i){
+		    print(nums);
+		    max--;
 		}
-		swap(nums,i,x);
+		swap(nums,i,max);
 	    }
-	    if(nums[i] == partition){
-		swap(nums,copies,i);
-		copies++;
+	    if(nums[i] > partition){
+		while(nums[max] > partition && max > i){
+		    print(nums);
+		    max--;
+		}
+		swap(nums,i,max);
 	    }
+	     if(nums[i] == partition){
+	     	swap(nums,copies+min,i);
+	     	copies++;
+	     }
 	}
-	for(int i = 1;i < x;i++){
-	    swap(nums,i,i-1);
+	for(int i = min + 1;i < max;i++){
+	    swap(nums,i,max);
 	}
-	return x - 1;
+	System.out.println(min);
+	System.out.println(max);
+	if(nums[min] > nums[max]){
+	    swap(nums,min,max);
+	    return max;
+	}else{
+	    swap(nums,min,max-1);
+	    return max - 1;
+	}
     }
     
     public static void swap(int[]nums, int num1, int num2){
@@ -75,7 +81,7 @@ public class quick{
     }
 
     public static int quickselect(int[] nums, int k){
-	int index = partition(nums);
+	int index = partition(nums,0,nums.length-1);
 	return findKH(nums,k,index);
     }
 
@@ -85,10 +91,25 @@ public class quick{
 	}
 	int index2 = 0;
 	if(index < k - 1){
-	    index2 = partitionAfter(nums,index);
+	    index2 = partition(nums,index+1,nums.length-1);
+	    return findKH(nums,k,index2);
 	}else{
-	    index2 = partitionBefore(nums,index);
+	    index2 = partition(nums,0,index-1);
+	    return findKH(nums,k,index2);
 	}
-	return findKH(nums,k,index2);
+    }
+
+    public static void quickSort(int[]nums){
+	int pivot = partition(nums,0,nums.length-1);
+	quickSortH(nums,pivot+1,nums.length-1);
+	quickSortH(nums,0,pivot-1);
+    }
+    
+    public static void quickSortH(int[]nums,int min,int max){
+	if(max - min > 0){
+	    int pivot = partition(nums,min,max);
+	    quickSortH(nums,pivot+1,max);
+	    quickSortH(nums,min,pivot-1);
+	}
     }
 }
