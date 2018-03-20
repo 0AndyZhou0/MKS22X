@@ -2,51 +2,38 @@ public class Quick{
     public static void main(String[] args){
 	//int[] ary = {999,999,999,4,1,0,3,2,999,999,999};
 	//int[] ary = {0,999,999,999,1999,0,3,2,999,999,999};
-	//int[] ary = {0,1,2,3,4,5,6,1,2,4,5};
+	int[] ary = {0,1,2,3,4,5,6,1,2,4,5};
 	//int[] ary = {0,0,0,0,0,1,1,1,1,1};
 	//int[] ary = {0,0,0,0,0,0,0,0,0,0,0,0,0};
 	//int[] ary = {1,2,0};
 	//print(ary);
 	//System.out.println(partition(ary,0,ary.length-1));
 	//System.out.println(quickselect(ary,5));
-	//quickSort(ary);
-        //print(ary);
+	quickSort(ary);
+	print(ary);
     }
-
-    /*
-      int[] list;
-      public sort(int[] nums){
-      list = new int[nums.length];
-      for(int i = 0;i < nums.length;i++){
-      list[i] = nums[i];
-      }
-      }
-    */
-
-    
     
     public static int partition(int[] nums, int min, int max){
-        swap(nums,(int)(Math.random() * (max - min + 1)) + min,min);
+	int index = (int)(Math.random() * (max - min + 1)) + min;
+        swap(nums,index,min);
 	int partition = nums[min];
-	//int copies = 1;
-	int i = min;
-	int j = min + 1;
-	while(j < max + 1){
-	    // if(nums[i] > partition){
-	    // 	while(nums[max] > partition && max >= i){
-	    // 	    System.out.println(max);
-	    // 	    max--;
-	    // 	}
-	    // 	swap(nums,i,max);
-	    // }
-	    if(nums[j] <= partition){
-		i++;
-		swap(nums,i,j);
+	int i = min + 1;
+	int j = max;
+	while(i <= j){
+	    if(nums[i] < partition){
+	    	i++;
+	    }else{
+		// if(nums[i] == partition){
+		//     swap(nums,i,index);
+		//     index++;
+		// }else{
+		    swap(nums,i,j);
+		    j--;
+		    //}
 	    }
-	    j++;
         }
-	swap(nums,i,min);
-	return i;
+	swap(nums,j,min);
+	return j;
     }
     
     public static void swap(int[]nums, int num1, int num2){
@@ -83,9 +70,7 @@ public class Quick{
     }
 
     public static void quickSort(int[]nums){
-	int pivot = partition(nums,0,nums.length-1);
-	quickSortH(nums,pivot+1,nums.length-1);
-	quickSortH(nums,0,pivot-1);
+        quickSortH(nums,0,nums.length-1);
     }
     
     public static void quickSortH(int[]nums,int min,int max){
