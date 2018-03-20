@@ -24,43 +24,44 @@ public class Quick{
     */
 
     
+    public static int partition(int[] nums, int min, int max){
+	int index = (int)(Math.random() * (max - min + 1)) + min;
+        swap(nums,index,min);
+	int partition = nums[min];
+	int i = min + 1;
+	int j = max;
+	while(i <= j){
+	    if(nums[i] < partition){
+	    	i++;
+	    }else{
+		// if(nums[i] == partition){
+		//     swap(nums,i,index);
+		//     index++;
+		// }else{
+		    swap(nums,i,j);
+		    j--;
+		    //}
+	    }        }
+	swap(nums,j,min);
+	return j;
+    }
     
+
     // public static int partition(int[] nums, int min, int max){
     //     swap(nums,(int)(Math.random() * (max - min + 1)) + min,min);
     // 	int partition = nums[min];
-    // 	int i = max;
+    // 	int i = min;
     // 	int j = min + 1;
-    // 	while(j <= i){
-    // 	    if(nums[j] > partition){
-    // 		while(nums[i] > partition && i >= j){
-    // 		    i--;
-    // 		}
-    // 		swap(nums,j,i);
-    // 	    }
-    // 	    if(nums[j] == partition){
-		
+    // 	while(j < max + 1){
+    // 	    if(nums[j] <= partition){
+    // 		i++;
+    // 		swap(nums,i,j);
     // 	    }
     // 	    j++;
     //     }
     // 	swap(nums,i,min);
     // 	return i;
     // }
-
-    public static int partition(int[] nums, int min, int max){
-        swap(nums,(int)(Math.random() * (max - min + 1)) + min,min);
-    	int partition = nums[min];
-    	int i = min;
-    	int j = min + 1;
-    	while(j < max + 1){
-    	    if(nums[j] <= partition){
-    		i++;
-    		swap(nums,i,j);
-    	    }
-    	    j++;
-        }
-    	swap(nums,i,min);
-    	return i;
-    }
     
     public static void swap(int[]nums, int num1, int num2){
 	int temp = nums[num1];
