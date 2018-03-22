@@ -1,8 +1,8 @@
 public class Merge{
     public static void main(String[] args){
-	//int[] ary = {1,2,54,1,56,4,2,2,6,34,23,6,2};
+	int[] ary = {1,2,54,1,56,4,2,2,6,34,23,6,2};
 	//int[] ary = {0,0,0,0,0,0,0,0,0};
-	int[] ary = {1,1,1,1,4,4,4,4,4,1,1,1,1};
+	//int[] ary = {1,1,1,1,4,4,4,4,4,1,1,1,1};
 	System.out.println(print(ary));
 	mergesort(ary);
 	System.out.println(print(ary));
@@ -10,9 +10,9 @@ public class Merge{
 
     public static void mergesort(int[]data){
 	int[] temp = new int[data.length];
-	for(int i = 0;i < data.length;i++){
-	    temp[i] = data[i];
-	}
+	// for(int i = 0;i < data.length;i++){
+	//     temp[i] = data[i];
+	// }
 	msort(data,temp,0,data.length-1);
     }
 	

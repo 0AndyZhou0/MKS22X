@@ -9,7 +9,7 @@ public class Quick{
 	//print(ary);
 	//System.out.println(partition(ary,0,ary.length-1));
 	//System.out.println(quickselect(ary,5));
-	quickSort(ary);
+	quicksort(ary);
         print(ary);
     }
 
@@ -30,18 +30,21 @@ public class Quick{
 	int partition = nums[min];
 	int i = min + 1;
 	int j = max;
+	int k = min;
 	while(i <= j){
 	    if(nums[i] < partition){
 	    	i++;
-	    }else{
-		// if(nums[i] == partition){
-		//     swap(nums,i,index);
-		//     index++;
-		// }else{
-		    swap(nums,i,j);
-		    j--;
-		    //}
-	    }        }
+	    }
+	    else if(nums[i] == partition){
+		swap(nums,i,k);
+		k++;
+		i++;
+	    }
+	    else{
+		swap(nums,i,j);
+		j--;
+	    }
+	}
 	swap(nums,j,min);
 	return j;
     }
@@ -96,10 +99,12 @@ public class Quick{
 	}
     }
 
-    public static void quickSort(int[]nums){
-	int pivot = partition(nums,0,nums.length-1);
-	quickSortH(nums,pivot+1,nums.length-1);
-	quickSortH(nums,0,pivot-1);
+    public static void quicksort(int[]nums){
+	if(nums.length != 0){
+	    int pivot = partition(nums,0,nums.length-1);
+	    quickSortH(nums,pivot+1,nums.length-1);
+	    quickSortH(nums,0,pivot-1);
+	}
     }
     
     public static void quickSortH(int[]nums,int min,int max){
