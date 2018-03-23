@@ -100,17 +100,42 @@ public class Quick{
 
     public static void quicksort(int[]nums){
 	if(nums.length != 0){
-	    int pivot = partition(nums,0,nums.length-1);
-	    quickSortH(nums,pivot+1,nums.length-1);
-	    quickSortH(nums,0,pivot-1);
+	    quickSortH(nums,0,nums.length-1);
 	}
     }
     
+    // public static void quickSortH(int[]nums,int min,int max){
+    // 	if(max > min){
+    // 	    int pivot = partition(nums,min,max);
+    // 	    quickSortH(nums,pivot+1,max);
+    // 	    quickSortH(nums,min,pivot-1);
+    // 	}
+    // }
+
     public static void quickSortH(int[]nums,int min,int max){
 	if(max > min){
-	    int pivot = partition(nums,min,max);
-	    quickSortH(nums,pivot+1,max);
-	    quickSortH(nums,min,pivot-1);
+	    int index = (int)(Math.random() * (max - min + 1)) + min;
+	    swap(nums,index,min);
+	    int partition = nums[min];
+	    int i = min + 1;
+	    int j = max;
+	    int k = min;
+	    while(i <= j){
+	        if(nums[i] < partition){
+		    swap(nums,i,k);
+		    k++;
+		    i++;
+		}
+		else if(nums[i] > partition){
+		    swap(nums,i,j);
+		    j--;
+		}
+		else{
+		    i++;
+		}
+	    }
+	    quickSortH(nums,j+1,max);
+	    quickSortH(nums,min,k-1);
 	}
     }
 }
