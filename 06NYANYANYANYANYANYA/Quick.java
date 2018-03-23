@@ -32,10 +32,10 @@ public class Quick{
 	int j = max;
 	int k = min;
 	while(i <= j){
-	    if(nums[i] < partition){
+	    if(nums[i] == partition){
 	    	i++;
 	    }
-	    else if(nums[i] == partition){
+	    else if(nums[i] < partition){
 		swap(nums,i,k);
 		k++;
 		i++;
@@ -45,7 +45,6 @@ public class Quick{
 		j--;
 	    }
 	}
-	swap(nums,j,min);
 	return j;
     }
     
