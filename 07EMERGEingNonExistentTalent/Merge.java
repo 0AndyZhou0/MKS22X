@@ -65,4 +65,18 @@ public class Merge{
 	line += ary[ary.length-1] + "]";
 	return line;
     }
+
+    public static void insertionSort(int[] data){
+	for (int i = 1;i < data.length;i++){
+	    for (int n = i;n > 0;n--){
+		if (data[n] < data[n-1]){
+		    swap(data,n,n-1);
+		    //System.out.println(toString(data));  //for testing
+		}
+		else{
+		    n = 1;
+		}
+	    }
+	}
+    }
 }

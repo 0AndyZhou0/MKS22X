@@ -65,7 +65,7 @@ public class driver{
     
 	long startTime = System.currentTimeMillis();
 	Merge.mergesort(start);
-	Merge.print(start);
+	//Merge.print(start);
 	/*
 	 * Test your sort here!
 	 */

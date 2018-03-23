@@ -126,16 +126,33 @@ public class Quick{
 		    k++;
 		    i++;
 		}
-		else if(nums[i] > partition){
-		    swap(nums,i,j);
-		    j--;
+		// else if(nums[i] > partition){
+		//     swap(nums,i,j);
+		//     j--;
+		// }
+		else if(nums[i] == partition){
+		    i++;
 		}
 		else{
-		    i++;
+		    swap(nums,i,j);
+		    j--;
 		}
 	    }
 	    quickSortH(nums,j+1,max);
 	    quickSortH(nums,min,k-1);
+	}
+    }
+
+    public static void insertionSort(int[] data){
+	for (int i = 1;i < data.length;i++){
+	    for (int n = i;n > 0;n--){
+		if (data[n] < data[n-1]){
+		    swap(data,n,n-1);
+		}
+		else{
+		    n = 1;
+		}
+	    }
 	}
     }
 }

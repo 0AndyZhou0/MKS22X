@@ -65,7 +65,7 @@ public class driver{
     
 	long startTime = System.currentTimeMillis();
 	Quick.quicksort(start);
-	Quick.print(start);
+	//Quick.print(start);
 	/*
 	 * Test your sort here!
 	 */
