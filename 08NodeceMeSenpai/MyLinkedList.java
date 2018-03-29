@@ -1,4 +1,3 @@
-import java.util.*;
 public class MyLinkedList{
     public static void main(String args[]){
 	MyLinkedList list = new MyLinkedList();
@@ -10,7 +9,9 @@ public class MyLinkedList{
 	list.set(1,123123);
 	System.out.println(list.toString());
 	//list.set(10,123123);
+	list.add(12894712);
 	System.out.println(list.toString());
+	System.out.println(list.get(2));
     }
     Node first,last;
     int size;
@@ -33,25 +34,44 @@ public class MyLinkedList{
 	}
 	return list + current.toString() + "]";
     }
-    
-    public int get(int n){
-	if(n < 1 || n > size){
+
+    //clears the list of all nodes
+    public void clear(){
+	first = null;
+	last = null;
+	size = 0;
+    }
+
+    private Node getNode(int n){
+	if(n < 0 || n > size){
 	    throw new IndexOutOfBoundsException();
 	}
 	Node current = first;
-	while(n > 1){
+	while(n >= 1){
+	    current = current.getNext();
+	    n--;
+	}
+	return current;
+    }
+    
+    public Integer get(int n){
+	if(n < 0 || n >= size){
+	    throw new IndexOutOfBoundsException();
+	}
+	Node current = first;
+	while(n >= 1){
 	    current = current.getNext();
 	    n--;
 	}
 	return current.getValue();
     }
     
-    public void set(int index,int value){
-	if(index < 1 || index > size){
+    public void set(int index,Integer value){
+	if(index < 0 || index >= size){
 	    throw new IndexOutOfBoundsException();
 	}
 	Node current = first;
-	while(index > 1){
+	while(index >= 1){
 	    current = current.getNext();
 	    index--;
 	}
@@ -62,34 +82,48 @@ public class MyLinkedList{
     }
 
     // adds node to the end of the linked list
-    public boolean add(int value){
-	if(size == 0){
-	    Node current = new Node(value);
-	    first = current;
-	    last = current;
-	    size++;
-	    return true;
-	}
-	Node current = new Node(value);
-	current.setPrev(last);
-	last.setNext(current);
-	last = current;
+    public boolean add(Integer value){
+	Node addition = new Node(value);
+	addition.setPrev(last);
+	last.setNext(addition);
+	last = addition;
 	size++;
 	return true;
+    }
+
+    public void add(int index, Integer value){	
+	if(index < 0 || index >= size){
+	    throw new IndexOutOfBoundsException();
+	}
+	Node addition = new Node(value);
+	if(index == size){
+	    add(value);
+	}else{
+	    Node current = first;
+	    while(index > 1){
+		current = current.getNext();
+		index--;
+	    }
+	    Node next = current.getNext().getNext();
+	    current.setNext(addition);
+	    addition.setPrev(current);
+	    addition.setNext(next);
+	    next.setPrev(addition);
+	}
     }
 
     
     private class Node{
 	Node next,prev;
-	int data;
+	Integer data;
 	
-	public Node(int data){
+	public Node(Integer data){
 	    this.data = data;
 	    next = null;
 	    prev = null;
 	}
 	
-	public Node(int data,Node next,Node prev){
+	public Node(Integer data,Node next,Node prev){
 	    this.data = data;
 	    next = next;
 	    prev = prev;
@@ -97,7 +131,7 @@ public class MyLinkedList{
 	
 	private Node getNext(){return next;}
 	private Node getPrev(){return prev;}
-	private int getValue(){return data;}
+	private Integer getValue(){return data;}
 	private void setValue(int value){data = value;}
 	private void setPrev(Node prev){this.prev = prev;}
 	private void setNext(Node next){this.next = next;}
