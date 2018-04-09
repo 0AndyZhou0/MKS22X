@@ -1,3 +1,4 @@
+//Caution: Keep out of reach of children.
 public class MyLinkedList{
     public static void main(String args[]){
 	MyLinkedList list = new MyLinkedList();
@@ -90,40 +91,37 @@ public class MyLinkedList{
 
     // adds node to the end of the linked list
     public boolean add(Integer value){
+        add(size,value);
+	return true;
+    }
+
+    // adds a node to the specified index
+    public void add(int index, Integer value){
 	Node addition = new Node(value);
 	if(size == 0){
 	    first = addition;
 	    last = addition;
 	    size++;
-	    return true;
 	}
-	addition.setPrev(last);
-	last.setNext(addition);
-	last = addition;
-	size++;
-	return true;
-    }
-
-    // adds a node to the specified index
-    public void add(int index, Integer value){	
-	if(index < 0 || index >= size){
-	    throw new IndexOutOfBoundsException();
-	}
-	Node addition = new Node(value);
-	if(index == size){
-	    add(value);
-	}else{
-	    Node current = first;
-	    while(index > 1){
-		current = current.getNext();
-		index--;
+	else{
+	    if(index == size){
+		addition.setPrev(last);
+		last.setNext(addition);
+		last = addition;
+		size++;
+	    }else{
+		Node current = first;
+		while(index > 1){
+		    current = current.getNext();
+		    index--;
+		}
+		Node next = current.getNext().getNext();
+		current.setNext(addition);
+		addition.setPrev(current);
+		addition.setNext(next);
+		next.setPrev(addition);
+		size++;
 	    }
-	    Node next = current.getNext().getNext();
-	    current.setNext(addition);
-	    addition.setPrev(current);
-	    addition.setNext(next);
-	    next.setPrev(addition);
-	    size++;
 	}
     }
 
@@ -133,7 +131,7 @@ public class MyLinkedList{
 	Node current = first;
 	int i = 0;
 	while(current != null){
-	    if(current.getValue() == value){
+	    if(current.getValue().equals(value)){
 		return i;
 	    }
 	    current = current.getNext();
@@ -146,7 +144,7 @@ public class MyLinkedList{
         Node current = first;
 	int i = 0;
 	while(current != null){
-	    if(current.getValue() == value){
+	    if(current.getValue().equals(value)){
 		current.getPrev().setNext(current.getNext());
 		current.getNext().setPrev(current.getPrev());
 		size--;
