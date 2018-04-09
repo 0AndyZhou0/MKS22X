@@ -141,6 +141,37 @@ public class MyLinkedList{
 	}
 	return -1;
     }
+
+    public boolean remove(Integer value){
+        Node current = first;
+	int i = 0;
+	while(current != null){
+	    if(current.getValue() == value){
+		current.getPrev().setNext(current.getNext());
+		current.getNext().setPrev(current.getPrev());
+		size--;
+		return true;
+	    }
+	    current = current.getNext();
+	    i++;
+	}
+	return false;
+    }
+
+    public Integer remove(int index){
+        if(index < 0 || index >= size){
+	    throw new IndexOutOfBoundsException();
+	}
+	Node current = first;
+	while(index >= 1){
+	    current = current.getNext();
+	    index--;
+	}
+        current.getPrev().setNext(current.getNext());
+	current.getNext().setPrev(current.getPrev());
+	size--;
+	return current.getValue();
+    }
     
     private class Node{
 	Node next,prev;
