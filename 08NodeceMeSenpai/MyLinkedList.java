@@ -1,14 +1,15 @@
 public class MyLinkedList{
     public static void main(String args[]){
 	MyLinkedList list = new MyLinkedList();
-	System.out.println(list.toString());
 	list.add(235);
-        System.out.println(list.toString());
 	list.add(123);
-        System.out.println(list.toString());
 	list.set(1,123123);
-	System.out.println(list.toString());
-	//list.set(10,123123);
+	list.add(232345);
+	list.add(7);
+	list.set(2,6);
+	list.add(235);
+	list.add(123);
+	list.set(1,123123);
 	list.add(12894712);
 	System.out.println(list.toString());
 	System.out.println(list.get(2));
@@ -42,7 +43,9 @@ public class MyLinkedList{
 	size = 0;
     }
 
+    // returns a specified node
     private Node getNode(int n){
+	// basic index out of bounds exception
 	if(n < 0 || n > size){
 	    throw new IndexOutOfBoundsException();
 	}
@@ -54,6 +57,7 @@ public class MyLinkedList{
 	return current;
     }
     
+    // returns the value of a specified node
     public Integer get(int n){
 	if(n < 0 || n >= size){
 	    throw new IndexOutOfBoundsException();
@@ -65,7 +69,8 @@ public class MyLinkedList{
 	}
 	return current.getValue();
     }
-    
+
+    // changes the value of a specified node
     public void set(int index,Integer value){
 	if(index < 0 || index >= size){
 	    throw new IndexOutOfBoundsException();
@@ -77,6 +82,8 @@ public class MyLinkedList{
 	}
 	current.setValue(value);
     }
+
+    // returns the number of nodes
     public int size(){
 	return size;
     }
@@ -84,6 +91,12 @@ public class MyLinkedList{
     // adds node to the end of the linked list
     public boolean add(Integer value){
 	Node addition = new Node(value);
+	if(size == 0){
+	    first = addition;
+	    last = addition;
+	    size++;
+	    return true;
+	}
 	addition.setPrev(last);
 	last.setNext(addition);
 	last = addition;
@@ -91,6 +104,7 @@ public class MyLinkedList{
 	return true;
     }
 
+    // adds a node to the specified index
     public void add(int index, Integer value){	
 	if(index < 0 || index >= size){
 	    throw new IndexOutOfBoundsException();
@@ -109,9 +123,24 @@ public class MyLinkedList{
 	    addition.setPrev(current);
 	    addition.setNext(next);
 	    next.setPrev(addition);
+	    size++;
 	}
     }
 
+    // finds the index of the first instance of a value
+    // otherwise, it returns -1;
+    public int indexOf(Integer value){
+	Node current = first;
+	int i = 0;
+	while(current != null){
+	    if(current.getValue() == value){
+		return i;
+	    }
+	    current = current.getNext();
+	    i++;
+	}
+	return -1;
+    }
     
     private class Node{
 	Node next,prev;
