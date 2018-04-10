@@ -1,20 +1,10 @@
-public class MyLinkedListImproved<T>{
-    
+import java.util.*;
+//Caution: Keep out of reach of children.
+public class MyLinkedListimproved<T> implements Iterable<T>{
     public static void main(String args[]){
-	MyLinkedList list = new MyLinkedList();
-	list.add(235);
-	list.add(123);
-	list.set(1,123123);
-	list.add(232345);
-	list.add(7);
-	list.set(2,6);
-	list.add(235);
-	list.add(123);
-	list.set(1,123123);
-	list.add(12894712);
-	System.out.println(list.toString());
-	System.out.println(list.get(2));
+        
     }
+
     Node first,last;
     int size;
 
@@ -47,11 +37,14 @@ public class MyLinkedListImproved<T>{
     // returns a specified node
     private Node getNode(int n){
 	// basic index out of bounds exception
-	if(n < 0 || n > size){
+	if(n < 0 || n >= size){
 	    throw new IndexOutOfBoundsException();
 	}
+	if(n == size-1){
+	    return last;
+	}
 	Node current = first;
-	while(n >= 1){
+	while(n > 0){
 	    current = current.getNext();
 	    n--;
 	}
@@ -60,28 +53,12 @@ public class MyLinkedListImproved<T>{
     
     // returns the value of a specified node
     public Integer get(int n){
-	if(n < 0 || n >= size){
-	    throw new IndexOutOfBoundsException();
-	}
-	Node current = first;
-	while(n >= 1){
-	    current = current.getNext();
-	    n--;
-	}
-	return current.getValue();
+        return getNode(n).getValue();
     }
 
     // changes the value of a specified node
     public void set(int index,Integer value){
-	if(index < 0 || index >= size){
-	    throw new IndexOutOfBoundsException();
-	}
-	Node current = first;
-	while(index >= 1){
-	    current = current.getNext();
-	    index--;
-	}
-	current.setValue(value);
+        getNode(index).setValue(value);
     }
 
     // returns the number of nodes
@@ -101,28 +78,27 @@ public class MyLinkedListImproved<T>{
 	if(size == 0){
 	    first = addition;
 	    last = addition;
-	    size++;
 	}
 	else{
-	    if(index == size){
-		addition.setPrev(last);
-		last.setNext(addition);
-		last = addition;
-		size++;
+	    if(index == 0){
+		addition.setNext(first);
+		first.setPrev(addition);
+		first = addition;
 	    }else{
-		Node current = first;
-		while(index > 1){
-		    current = current.getNext();
-		    index--;
+		if(index == size){
+		    addition.setPrev(last);
+		    last.setNext(addition);
+		    last = addition;
+		}else{
+		    Node current = getNode(index);
+		    current.getPrev().setNext(addition);
+		    addition.setPrev(current.getPrev());
+		    addition.setNext(current);
+		    current.setPrev(addition);
 		}
-		Node next = current.getNext().getNext();
-		current.setNext(addition);
-		addition.setPrev(current);
-		addition.setNext(next);
-		next.setPrev(addition);
-		size++;
 	    }
 	}
+	size++;
     }
 
     // finds the index of the first instance of a value
@@ -145,9 +121,7 @@ public class MyLinkedListImproved<T>{
 	int i = 0;
 	while(current != null){
 	    if(current.getValue().equals(value)){
-		current.getPrev().setNext(current.getNext());
-		current.getNext().setPrev(current.getPrev());
-		size--;
+	        remove(i);
 		return true;
 	    }
 	    current = current.getNext();
@@ -160,11 +134,19 @@ public class MyLinkedListImproved<T>{
         if(index < 0 || index >= size){
 	    throw new IndexOutOfBoundsException();
 	}
-	Node current = first;
-	while(index >= 1){
-	    current = current.getNext();
-	    index--;
+	if(index == 0){
+	    Integer thing = first.getValue();
+	    first = first.getNext();
+	    size--;
+	    return thing;
 	}
+	if(index == size-1){
+	    Integer thing = last.getValue();
+	    last = last.getPrev();
+	    size--;
+	    return thing;
+	}
+	Node current = getNode(index);
         current.getPrev().setNext(current.getNext());
 	current.getNext().setPrev(current.getPrev());
 	size--;
@@ -194,5 +176,12 @@ public class MyLinkedListImproved<T>{
 	private void setPrev(Node prev){this.prev = prev;}
 	private void setNext(Node next){this.next = next;}
 	public String toString(){return "" + getValue();}
+    }
+
+    Private class Irritator implements Iterator<T>{
+	Node current;
+	public Irritaor(Node first){
+	    current = first;
+	}
     }
 }
