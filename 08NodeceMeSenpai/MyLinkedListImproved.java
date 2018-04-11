@@ -180,8 +180,19 @@ public class MyLinkedListimproved<T> implements Iterable<T>{
 
     Private class Irritator implements Iterator<T>{
 	Node current;
-	public Irritaor(Node first){
+	public Irritator(Node first){
 	    current = first;
 	}
+	public boolean hasNext(){
+	    return current != null;
+	}
+	public T next(){
+	    return current.getValue();
+	}
+	public void remove();
+    }
+
+    public iterator<T> iterator(){
+	return new Irritator(first);
     }
 }
