@@ -1,14 +1,25 @@
 import java.util.*;
 //Caution: Keep out of reach of children.
-public class MyLinkedListimproved<T> implements Iterable<T>{
+public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T>{
     public static void main(String args[]){
-        
+        MyLinkedListImproved<String> s = new MyLinkedListImproved<>();
+	s.add("asdasda");
+	System.out.println(s);
+
+	MyLinkedListImproved<String> t = new MyLinkedListImproved<>();
+	for (int i = 0; i < 100; i++){
+	    t.add(i + " ");
+	}
+	for (String x: t){
+	    System.out.print(x);
+	}
+	System.out.println(t);
     }
 
     Node first,last;
     int size;
 
-    public MyLinkedList(){
+    public MyLinkedListImproved(){
 	first = null;
 	last = null;
 	size = 0;
@@ -52,12 +63,12 @@ public class MyLinkedListimproved<T> implements Iterable<T>{
     }
     
     // returns the value of a specified node
-    public Integer get(int n){
+    public T get(int n){
         return getNode(n).getValue();
     }
 
     // changes the value of a specified node
-    public void set(int index,Integer value){
+    public void set(int index,T value){
         getNode(index).setValue(value);
     }
 
@@ -67,13 +78,13 @@ public class MyLinkedListimproved<T> implements Iterable<T>{
     }
 
     // adds node to the end of the linked list
-    public boolean add(Integer value){
+    public boolean add(T value){
         add(size,value);
 	return true;
     }
 
     // adds a node to the specified index
-    public void add(int index, Integer value){
+    public void add(int index, T value){
 	Node addition = new Node(value);
 	if(size == 0){
 	    first = addition;
@@ -103,7 +114,7 @@ public class MyLinkedListimproved<T> implements Iterable<T>{
 
     // finds the index of the first instance of a value
     // otherwise, it returns -1;
-    public int indexOf(Integer value){
+    public int indexOf(T value){
 	Node current = first;
 	int i = 0;
 	while(current != null){
@@ -116,7 +127,7 @@ public class MyLinkedListimproved<T> implements Iterable<T>{
 	return -1;
     }
 
-    public boolean remove(Integer value){
+    public boolean remove(T value){
         Node current = first;
 	int i = 0;
 	while(current != null){
@@ -130,18 +141,18 @@ public class MyLinkedListimproved<T> implements Iterable<T>{
 	return false;
     }
 
-    public Integer remove(int index){
+    public T remove(int index){
         if(index < 0 || index >= size){
 	    throw new IndexOutOfBoundsException();
 	}
 	if(index == 0){
-	    Integer thing = first.getValue();
+	    T thing = first.getValue();
 	    first = first.getNext();
 	    size--;
 	    return thing;
 	}
 	if(index == size-1){
-	    Integer thing = last.getValue();
+	    T thing = last.getValue();
 	    last = last.getPrev();
 	    size--;
 	    return thing;
@@ -155,15 +166,15 @@ public class MyLinkedListimproved<T> implements Iterable<T>{
     
     private class Node{
 	Node next,prev;
-	Integer data;
+	T data;
 	
-	public Node(Integer data){
+	public Node(T data){
 	    this.data = data;
 	    next = null;
 	    prev = null;
 	}
 	
-	public Node(Integer data,Node next,Node prev){
+	public Node(T data,Node next,Node prev){
 	    this.data = data;
 	    next = next;
 	    prev = prev;
@@ -171,28 +182,67 @@ public class MyLinkedListimproved<T> implements Iterable<T>{
 	
 	private Node getNext(){return next;}
 	private Node getPrev(){return prev;}
-	private Integer getValue(){return data;}
-	private void setValue(int value){data = value;}
+	private T getValue(){return data;}
+	private void setValue(T value){data = value;}
 	private void setPrev(Node prev){this.prev = prev;}
 	private void setNext(Node next){this.next = next;}
 	public String toString(){return "" + getValue();}
     }
 
-    Private class Irritator implements Iterator<T>{
+    private class Irritator implements Iterator<T>{
 	Node current;
 	public Irritator(Node first){
 	    current = first;
 	}
 	public boolean hasNext(){
-	    return current != null;
+	    return current.equals(null);
 	}
 	public T next(){
 	    return current.getValue();
 	}
-	public void remove();
+	public void remove(){
+
+	    
+	}
     }
 
-    public iterator<T> iterator(){
+    public Iterator<T> iterator(){
 	return new Irritator(first);
+    }
+
+    public int max(){
+	if(size == 0){
+	    return -1;
+	}
+	Node current = first;
+	int max = 0;
+	T maxValue = current.getValue();
+	int i = 0;
+	while(current != null){
+	    if(current.getValue().compareTo(maxValue) > 0){
+		max = i;
+		maxValue = current.getValue();
+	    }
+	    i++;
+	}
+	return max;
+    }
+
+    public int min(){
+	if(size == 0){
+	    return -1;
+	}
+	Node current = first;
+	int min = 0;
+        T minValue = current.getValue();
+	int i = 0;
+	while(current != null){
+	    if(current.getValue().compareTo(minValue) < 0){
+		min = i;
+		minValue = current.getValue();
+	    }
+	    i++;
+	}
+	return min;
     }
 }
