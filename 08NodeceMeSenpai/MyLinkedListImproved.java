@@ -245,5 +245,15 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	}
 	return min;
     }
+
+    public void merge(MyLinkedListImproved<T> extension){
+	if(size() != 0 && extension.size() != 0){
+	    extension.first.setPrev(last);
+	    last.setNext(extension.first);
+	    last = extension.last;
+	    size += extension.size();
+	    extension.clear();
+	}
+    }
 }
 
