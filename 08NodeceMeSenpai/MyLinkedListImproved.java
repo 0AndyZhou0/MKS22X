@@ -195,10 +195,12 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	    current = first;
 	}
 	public boolean hasNext(){
-	    return current.equals(null);
+	    return !(current == null);
 	}
 	public T next(){
-	    return current.getValue();
+	    T temp = current.getValue();
+	    current = current.getNext();
+	    return temp;
 	}
 	public void remove(){
 
@@ -246,13 +248,22 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	return min;
     }
 
-    public void merge(MyLinkedListImproved<T> extension){
-	if(size() != 0 && extension.size() != 0){
-	    extension.first.setPrev(last);
-	    last.setNext(extension.first);
-	    last = extension.last;
-	    size += extension.size();
-	    extension.clear();
+    public void extend(MyLinkedListImproved<T> extension){
+	System.out.println(extension);
+	if(extension.first != null){
+	    if(first != null){
+		extension.first.setPrev(last);
+		last.setNext(extension.first);
+		last = extension.last;
+		size += extension.size();
+		extension.clear();
+	    }
+	    if(first == null){
+		first = extension.first;
+		last = extension.last;
+		size = extension.size();
+		extension.clear();
+	    }
 	}
     }
 }
