@@ -1,0 +1,7 @@
+import java.util.*;
+public class MyDeque{
+    private String[] ary;
+    private int start,end;
+    private int size;
+    
+}
