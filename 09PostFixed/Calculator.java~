@@ -1,0 +1,31 @@
+import java.util.*;
+public class Calculator{
+    public static void main(String[] args){
+	System.out.println(eval("10 2 +"));
+    }
+    public static double eval(String expression){
+	String[] temp = expression.split(" ");
+	Stack<String> list = new Stack();
+	for(int i = 0;i < temp.length;i++){
+	    String s = temp[i];
+	    if(s.equals("+")){
+		list.push(list.pop() + list.pop());
+	    }
+	    else if(s.equals("-")){
+		list.push(list.pop() - list.pop());
+	    }
+	    else if(s.equals("*")){
+		list.push(list.pop() * list.pop());
+	    }
+	    else if(s.equals("/")){
+		list.push(list.pop() / list.pop());
+	    }
+	    else if(s.equals("%")){
+		list.push(list.pop() % list.pop());
+	    }
+	    else{
+		list.push(Double.parseDouble(s));
+	    }
+	}
+    }
+}
