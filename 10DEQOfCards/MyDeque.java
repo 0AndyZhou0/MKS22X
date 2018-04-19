@@ -1,5 +1,12 @@
 import java.util.*;
 public class MyDeque<E>{
+    public static void main(String[] args){
+	MyDeque<String> a = new MyDeque();
+	
+	a.addFirst("hi");
+	
+    }
+    
     private T[] ary;
     private int start,end;
     private int size;
@@ -19,6 +26,17 @@ public class MyDeque<E>{
 	size = 0;
     }
 
+    public String toString(){
+	String line = "[";
+	for(int i = first;i < last;i++){
+	    if(i == ary.length){
+		i = 0;
+	    }
+	    line += ary[i] + ","
+	}
+	return line + "]";
+    }
+
     public int size(){
 	return size;
     }
@@ -27,20 +45,30 @@ public class MyDeque<E>{
 	if(element == null){
 	    throw new NullPointerException();
 	}
+	if(size == 0){
+	    ary[0] = element;
+	    first = 0;
+	    end = 0;
+	}
 	if(size == ary.length){
 	    //resize();
 	}
-	if(start == 0){
-	    start = size - 1;
+	if(first == 0){
+	    first = size - 1;
 	}else{
-	    start--;
+	    first--;
 	}
-	ary[start] = element;
+	ary[first] = element;
     }
     
     public void addLast(E element){
 	if(element == null){
 	    throw new NullPointerException();
+	}
+	if(size == 0){
+	    ary[0] = element;
+	    first = 0;
+	    end = 0;
 	}
 	if(size == ary.length){
 	    //resize();
@@ -50,17 +78,17 @@ public class MyDeque<E>{
 	}else{
 	    end++;
 	}
-	ary[start] = element;
+	ary[first] = element;
     }
 
     public E removeFirst(){
 	if(size == 0){
 	    throw new NoSuchElementException();
 	}
-	temp = ary[start];
-	ary[start++] = null;
-	if(start == ary.length){
-	    start = 0;
+	temp = ary[first];
+	ary[first++] = null;
+	if(first == ary.length){
+	    first = 0;
 	}
 	return temp;
     }
@@ -76,5 +104,17 @@ public class MyDeque<E>{
 	}
     }
 
+    public E getFirst(){
+	if(size == 0){
+	    throw new NoSuchElementException();
+	}
+	return ary[first];
+    }
     
+    public E getLast(){
+	if(size == 0){
+	    throw new NoSuchElementException();
+	}
+	return ary[end];
+    }
 }
