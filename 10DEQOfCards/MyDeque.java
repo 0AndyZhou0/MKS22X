@@ -1,19 +1,28 @@
 import java.util.*;
+@SuppressWarnings("unchecked")
 public class MyDeque<E>{
     public static void main(String[] args){
 	MyDeque<String> a = new MyDeque();
 	
 	a.addFirst("hi");
-	
+	System.out.println(a);
+	a.addLast("bye");
+	System.out.println(a);
+	a.addLast("tree");
+	System.out.println(a);
+	a.addFirst("friend");
+	System.out.println(a);
+	a.removeFirst();
+	System.out.println(a);
     }
     
-    private T[] ary;
-    private int start,end;
+    private E[] ary;
+    private int first,last;
     private int size;
 
     @SuppressWarnings("unchecked")
     public MyDeque(){
-	ary = new E[10];
+	    ary = (E[])new Object[10];
 	size = 0;
     }
 
@@ -22,17 +31,17 @@ public class MyDeque<E>{
 	if(initialCapacity <= 0){
 	    throw new IllegalArgumentException();
 	}
-	ary = new E[initialCapacity];
+	    ary = (E[])new Object[initialCapacity];
 	size = 0;
     }
 
     public String toString(){
 	String line = "[";
-	for(int i = first;i < last;i++){
+	for(int i = first;i <= last;i++){
 	    if(i == ary.length){
 		i = 0;
 	    }
-	    line += ary[i] + ","
+	    line += ary[i] + ",";
 	}
 	return line + "]";
     }
@@ -48,17 +57,19 @@ public class MyDeque<E>{
 	if(size == 0){
 	    ary[0] = element;
 	    first = 0;
-	    end = 0;
-	}
-	if(size == ary.length){
-	    //resize();
-	}
-	if(first == 0){
-	    first = size - 1;
+	    last = 0;
 	}else{
-	    first--;
+	    if(size == ary.length){
+		//resize();
+	    }
+	    if(first == 0){
+		first = ary.length - 1;
+	    }else{
+		first--;
+	    }
+	    ary[first] = element;
 	}
-	ary[first] = element;
+	size++;
     }
     
     public void addLast(E element){
@@ -68,24 +79,26 @@ public class MyDeque<E>{
 	if(size == 0){
 	    ary[0] = element;
 	    first = 0;
-	    end = 0;
-	}
-	if(size == ary.length){
-	    //resize();
-	}
-        if(end == ary.length - 1){
-	    end = 0;
+	    last = 0;
 	}else{
-	    end++;
+	    if(size == ary.length){
+		//resize();
+	    }
+	    if(last == ary.length - 1){
+		last = 0;
+	    }else{
+		last++;
+	    }
+	    ary[last] = element;
 	}
-	ary[first] = element;
+	size++;
     }
 
     public E removeFirst(){
 	if(size == 0){
 	    throw new NoSuchElementException();
 	}
-	temp = ary[first];
+	E temp = ary[first];
 	ary[first++] = null;
 	if(first == ary.length){
 	    first = 0;
@@ -97,11 +110,12 @@ public class MyDeque<E>{
 	if(size == 0){
 	    throw new NoSuchElementException();
 	}
-	temp = ary[end];
-	ary[end--] == null;
-        if(end == -1){
-	    end = ary.length - 1;
+	E temp = ary[last];
+	ary[last--] = null;
+        if(last == -1){
+	    last = ary.length - 1;
 	}
+	return temp;
     }
 
     public E getFirst(){
@@ -115,6 +129,6 @@ public class MyDeque<E>{
 	if(size == 0){
 	    throw new NoSuchElementException();
 	}
-	return ary[end];
+	return ary[last];
     }
 }
