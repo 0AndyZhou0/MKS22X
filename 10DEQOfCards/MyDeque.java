@@ -12,8 +12,30 @@ public class MyDeque<E>{
 	System.out.println(a);
 	a.addFirst("friend");
 	System.out.println(a);
-	a.removeFirst();
-	System.out.println(a);
+	// a.addFirst("hi");
+	// System.out.println(a);
+	// a.addLast("bye");
+	// System.out.println(a);
+	// a.addLast("tree");
+	// System.out.println(a);
+	// a.addFirst("friend");
+	// System.out.println(a);
+	// a.addFirst("hi");
+	// System.out.println(a);
+	// a.addLast("bye");
+	// System.out.println(a);
+	// a.addLast("tree");
+	// System.out.println(a);
+	// a.addFirst("friend");
+	// System.out.println(a);
+	// a.addFirst("hi");
+	// System.out.println(a);
+	// a.addLast("bye");
+	// System.out.println(a);
+	// a.addLast("tree");
+	// System.out.println(a);
+	// a.addFirst("friend");
+	// System.out.println(a);
     }
     
     private E[] ary;
@@ -22,7 +44,7 @@ public class MyDeque<E>{
 
     @SuppressWarnings("unchecked")
     public MyDeque(){
-	    ary = (E[])new Object[10];
+	ary = (E[])new Object[10];
 	size = 0;
     }
 
@@ -31,7 +53,7 @@ public class MyDeque<E>{
 	if(initialCapacity <= 0){
 	    throw new IllegalArgumentException();
 	}
-	    ary = (E[])new Object[initialCapacity];
+	ary = (E[])new Object[initialCapacity];
 	size = 0;
     }
 
@@ -60,12 +82,10 @@ public class MyDeque<E>{
 	    last = 0;
 	}else{
 	    if(size == ary.length){
-		//resize();
+		resize();
 	    }
-	    if(first == 0){
+	    if(first-- == 0){
 		first = ary.length - 1;
-	    }else{
-		first--;
 	    }
 	    ary[first] = element;
 	}
@@ -82,12 +102,10 @@ public class MyDeque<E>{
 	    last = 0;
 	}else{
 	    if(size == ary.length){
-		//resize();
+		resize();
 	    }
-	    if(last == ary.length - 1){
+	    if(++last == ary.length){
 		last = 0;
-	    }else{
-		last++;
 	    }
 	    ary[last] = element;
 	}
@@ -95,7 +113,7 @@ public class MyDeque<E>{
     }
 
     public E removeFirst(){
-	if(size == 0){
+	if(size-- == 0){
 	    throw new NoSuchElementException();
 	}
 	E temp = ary[first];
@@ -107,7 +125,7 @@ public class MyDeque<E>{
     }
 
     public E removeLast(){
-	if(size == 0){
+	if(size-- == 0){
 	    throw new NoSuchElementException();
 	}
 	E temp = ary[last];
@@ -130,5 +148,20 @@ public class MyDeque<E>{
 	    throw new NoSuchElementException();
 	}
 	return ary[last];
+    }
+
+    @SuppressWarnings("unchecked")
+    private void resize(){
+	E[] bigger = (E[]) new Object[size*2];
+	int index = 0;
+	for(int i = first;i <= last;i++){
+	    if(i == ary.length){
+		i = 0;
+	    }
+	    bigger[index++] = ary[i];
+	}
+	ary = bigger;
+	first = 0;
+	last = size - 1;
     }
 }
