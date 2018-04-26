@@ -76,15 +76,15 @@ public class MyDeque<E>{
     }
 
     public String toString(){
-	 if(size == 0){
-	     return "[]";
-	 }
-	 String line = "[";
-	for(int i = first;i != last;i++){
+	if(size == 0){
+	    return "[]";
+	}
+	String line = "[";
+	for(int i = first;i != last;){
+	    line += ary[i++] + ",";
 	    if(i == ary.length){
 		i = 0;
 	    }
-	    line += ary[i] + ",";
 	}
 	line += ary[last];
 	return line + "]";
@@ -110,7 +110,6 @@ public class MyDeque<E>{
 	    if(first == -1){
 		first = ary.length - 1;
 	    }
-	    System.out.println(first);
 	    ary[first] = element;
 	}
 	size++;
