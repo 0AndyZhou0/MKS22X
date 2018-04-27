@@ -12,19 +12,24 @@ public class MyHeap{
 	MaxMin = boolean;
     }
 
-    public void add(String s){
+    public void add(String element){
 	if(size == ary.length - 1){
 	    resize();
 	}
-	
+	ary[++size] = element;
+	//add code to position element correctly.
     }
 
+    //remove the top element
     public String remove(){
-
+	ary[0] = ary[size--];
+	ary[size] = null;
+	//add code to poisition elements correctly.
     }
 
     public String peek(){
-
+	if(ary.length > 0){return ary[0]}
+	return null;
     }
 
     public int size(){
@@ -39,9 +44,9 @@ public class MyHeap{
 	ary = bigger;
     }
     
-    public void swap(String[] ary,int a,int b){
-	String temp = ary[a];
-	ary[a] = ary[b];
-	ary[b] = temp;
+    public void swapUp(int n){
+	String temp = ary[nn];
+	ary[n] = ary[(n-1)/2];
+	ary[(n-1)/2] = temp;
     }
 }
