@@ -4,34 +4,46 @@ public class MyHeap<T extends Comparable<T>>{
     private boolean MaxMin = true;
 
     public static void main(String[] args){
-	
+	MyHeap<String> a = new MyHeap<>();
+	a.add("succ");
+	a.add("thicc");
+	System.out.println(a);
     }
     
     @SuppressWarnings("unchecked")
     public MyHeap(){
-	ary = (T[])new Object[15];
+	ary = (T[])new Comparable[15];
     }
 
     @SuppressWarnings("unchecked")
     public MyHeap(boolean listStyle){
-	ary = (T[])new Object[15];
+	ary = (T[])new Comparable[15];
 	MaxMin = listStyle;
     }
 
+    public String toString(){
+	String line = "[";
+	for(int i = 0;i < size;i++){
+	    line += ary[i] + ",";
+	}
+	return line + "]";
+    }
+    
     public void add(T element){
 	if(size == ary.length - 1){
 	    resize();
 	}
-	ary[++size] = element;
+	ary[size++] = element;
 	//add code to position element correctly.
     }
 
     //remove the top element
     public T remove(){
+	T top = ary[0];
 	ary[0] = ary[size--];
 	ary[size] = null;
 	//add code to poisition elements correctly.
-	return ary[0];
+	return top;
     }
 
     public T peek(){
@@ -45,7 +57,7 @@ public class MyHeap<T extends Comparable<T>>{
 
     @SuppressWarnings("unchecked")
     public void resize(){
-	T[] bigger = (T[])new Object[ary.length * 2];
+	T[] bigger = (T[])new Comparable[ary.length * 2];
 	for(int i = 0;i < ary.length;i++){
 	    bigger[i] = ary[i];
 	}
