@@ -37,6 +37,12 @@ public class MyHeap<T extends Comparable<T>>{
 	//add code to position element correctly.
     }
 
+    public void addSingle(int index){
+	while(index < size){
+
+	}
+    }
+
     //remove the top element
     public T remove(){
 	T top = ary[0];
@@ -65,6 +71,12 @@ public class MyHeap<T extends Comparable<T>>{
     }
     
     public void swapUp(int n){
+	T temp = ary[n];
+	ary[n] = ary[(n-1)/2];
+	ary[(n-1)/2] = temp;
+    }
+
+    public void swapDown(int n){
 	T temp = ary[n];
 	ary[n] = ary[(n-1)/2];
 	ary[(n-1)/2] = temp;
