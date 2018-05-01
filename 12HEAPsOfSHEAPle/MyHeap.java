@@ -4,9 +4,13 @@ public class MyHeap<T extends Comparable<T>>{
     private boolean MaxMin = true;
 
     public static void main(String[] args){
-	MyHeap<String> a = new MyHeap<>();
-	a.add("succ");
-	a.add("thicc");
+	MyHeap<Integer> a = new MyHeap<>();
+	a.add(1);
+	a.add(9);
+	a.add(1231);
+	a.add(7);
+	a.add(12);
+	a.add(13);
 	System.out.println(a);
     }
     
@@ -35,6 +39,11 @@ public class MyHeap<T extends Comparable<T>>{
 	}
 	ary[size++] = element;
 	//add code to position element correctly.
+	int thing = (size-2)/2;
+	while(element.compareTo(ary[thing]) > 0){
+	    swapUp(size-1);
+	    thing = (thing-1)/2;
+	}
     }
 
     public void addSingle(int index){
@@ -76,9 +85,9 @@ public class MyHeap<T extends Comparable<T>>{
 	ary[(n-1)/2] = temp;
     }
 
-    public void swapDown(int n){
+    public void swapDown(int n,int inc){
 	T temp = ary[n];
-	ary[n] = ary[(n-1)/2];
-	ary[(n-1)/2] = temp;
+	ary[n] = ary[2*n+inc];
+	ary[2*n+inc] = temp;
     }
 }
