@@ -5,12 +5,9 @@ public class MyHeap<T extends Comparable<T>>{
 
     public static void main(String[] args){
 	MyHeap<Integer> a = new MyHeap<>();
-	a.add(1);
-	a.add(9);
-	a.add(1231);
-	a.add(7);
-	a.add(12);
-	a.add(13);
+        for(int i = 0;i < 9;i++){
+	    a.add(i);
+	}
 	System.out.println(a);
     }
     
@@ -41,14 +38,8 @@ public class MyHeap<T extends Comparable<T>>{
 	//add code to position element correctly.
 	int thing = (size-2)/2;
 	while(element.compareTo(ary[thing]) > 0){
-	    swapUp(size-1);
+	    swapUp(thing-1);
 	    thing = (thing-1)/2;
-	}
-    }
-
-    public void addSingle(int index){
-	while(index < size){
-
 	}
     }
 
