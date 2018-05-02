@@ -79,4 +79,10 @@ public class Merge{
 	    }
 	}
     }
+
+    public static void swap(int[] ary,int a,int b){
+	int temp = ary[a];
+	ary[a] = ary[b];
+	ary[b] = temp;
+    }
 }
