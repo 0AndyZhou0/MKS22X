@@ -29,6 +29,8 @@ public class MyHeap<T extends Comparable<T>>{
 	System.out.println(a);
 	a.add(13);
 	System.out.println(a);
+	a.remove();
+	System.out.println(a);
     }
     
     @SuppressWarnings("unchecked")
@@ -55,20 +57,56 @@ public class MyHeap<T extends Comparable<T>>{
 	    resize();
 	}
 	ary[size++] = element;
-	int thing = size-1;
-	while(element.compareTo(ary[(thing-1)/2]) > 0){
-	    swapUp(thing--);
-	    thing /= 2;
-	}
+	MoveElementUp(size-1);
     }
 
     //remove the top element
     public T remove(){
 	T top = ary[0];
-	ary[0] = ary[size--];
+	ary[0] = ary[--size];
 	ary[size] = null;
-	//add code to poisition elements correctly.
+        for(int i = size-1;i > 0;i--){
+	    MoveElementDown(i);
+	}
 	return top;
+    }
+
+    private void MoveElementUp(int index){
+	T element = ary[index];
+	if(MaxMin){
+	    while(element.compareTo(ary[(index-1)/2]) > 0){
+		swapUp(index--);
+		index /= 2;
+	    }
+	}else{
+	    while(element.compareTo(ary[(index-1)/2]) < 0){
+		swapUp(index--);
+		index /= 2;
+	    }
+	}
+    }
+
+    private void MoveElementDown(int index){
+	T element = ary[index];
+	if(MaxMin){
+	    while(2 * index < size - 1){
+		int inc = 2;
+		if(ary[2*index+1].compareTo(ary[2*index+2]) >= 0){
+		    inc = 1;
+		}
+		swapDown(index,inc);
+		index = index * 2 + 1;
+	    }
+	}else{
+	    while(2 * index < size){
+		int inc = 2;
+		if(ary[2*index+1].compareTo(ary[2*index+2]) < 0){
+		    inc = 1;
+		}
+		swapDown(index,inc);
+		index = index * 2 + 1;
+	    }
+	}
     }
 
     public T peek(){
@@ -96,8 +134,8 @@ public class MyHeap<T extends Comparable<T>>{
     }
 
     public void swapDown(int n,int inc){
-	T temp = ary[n];
-	ary[n] = ary[2*n+inc];
-	ary[2*n+inc] = temp;
+	    T temp = ary[n];
+	    ary[n] = ary[2*n+inc];
+	    ary[2*n+inc] = temp;
     }
 }
