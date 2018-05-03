@@ -4,33 +4,20 @@ public class MyHeap<T extends Comparable<T>>{
     private boolean MaxMin = true;
 
     public static void main(String[] args){
-	MyHeap<Integer> a = new MyHeap<>();
-	a.add(9);
-	System.out.println(a);
-	a.add(3);
-	System.out.println(a);
-	a.add(1);
-	System.out.println(a);
-	a.add(13);
-	System.out.println(a);
-	a.add(19);
-	System.out.println(a);
-	a.add(3);
-	System.out.println(a);
-	a.add(1);
-	System.out.println(a);
-	a.add(123);
-	System.out.println(a);
-	a.add(9);
-	System.out.println(a);
-	a.add(3);
-	System.out.println(a);
-	a.add(14);
-	System.out.println(a);
-	a.add(13);
-	System.out.println(a);
-	a.remove();
-	System.out.println(a);
+        MyHeap<Integer> heap = new MyHeap<>();
+	for(int i = 0; i < 15; i++){
+	    heap.add(i);
+	}
+	System.out.println(heap);
+	heap.remove();
+	System.out.println(heap);
+
+	heap.remove();
+	System.out.println(heap);
+
+	heap.remove();
+
+	System.out.println(heap);
     }
     
     @SuppressWarnings("unchecked")
@@ -62,6 +49,9 @@ public class MyHeap<T extends Comparable<T>>{
 
     //remove the top element
     public T remove(){
+	if(size == 0){
+	    throw new NullPointerException();
+	}
 	T top = ary[0];
 	ary[0] = ary[--size];
 	ary[size] = null;
@@ -88,23 +78,16 @@ public class MyHeap<T extends Comparable<T>>{
 
     private void MoveElementDown(int index){
 	T element = ary[index];
+	int i = 1;
 	if(MaxMin){
-	    while(2 * index < size - 1){
-		int inc = 2;
+	    while(2 * index + 2 < size && ary[2*index+1].compareTo(ary[index]) > 0 && ary[2*index+1].compareTo(ary[index]) > 0){
 		if(ary[2*index+1].compareTo(ary[2*index+2]) >= 0){
-		    inc = 1;
+		    i = 1;
+		}else{
+		    i = 2;
 		}
-		swapDown(index,inc);
-		index = index * 2 + 1;
-	    }
-	}else{
-	    while(2 * index < size){
-		int inc = 2;
-		if(ary[2*index+1].compareTo(ary[2*index+2]) < 0){
-		    inc = 1;
-		}
-		swapDown(index,inc);
-		index = index * 2 + 1;
+		swapDown(index,i);
+		index = index * 2 + i;
 	    }
 	}
     }
@@ -134,8 +117,8 @@ public class MyHeap<T extends Comparable<T>>{
     }
 
     public void swapDown(int n,int inc){
-	    T temp = ary[n];
-	    ary[n] = ary[2*n+inc];
-	    ary[2*n+inc] = temp;
+	T temp = ary[n];
+	ary[n] = ary[2*n+inc];
+	ary[2*n+inc] = temp;
     }
 }
