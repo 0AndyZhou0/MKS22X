@@ -1,0 +1,6 @@
+public class RunningMedian{
+    private Double[] smaller,larger;
+    public RunningMedian(){
+	
+    }
+}
