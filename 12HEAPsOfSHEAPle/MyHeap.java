@@ -16,7 +16,8 @@ public class MyHeap<T extends Comparable<T>>{
 	System.out.println(heap);
 
 	heap.remove();
-
+	System.out.println(heap);
+	heap.remove();
 	System.out.println(heap);
     }
     
@@ -76,7 +77,7 @@ public class MyHeap<T extends Comparable<T>>{
     private void MoveElementDown(int index){
 	T element = ary[index];
 	if(MaxMin){
-	    while(2*index+2 < size && (element.compareTo(ary[2*index+1]) < 0 || element.compareTo(ary[2*index+2]) > 0)){
+	    while(2*index+2 < size && (element.compareTo(ary[2*index+1]) < 0 || element.compareTo(ary[2*index+2]) < 0)){
 		if(ary[2*index+1].compareTo(ary[2*index+2]) >= 0){
 		    swapDown(index,1);
 		    index = index * 2 + 1;
@@ -89,7 +90,7 @@ public class MyHeap<T extends Comparable<T>>{
 		    System.out.println(index);
 		}
 	    }
-	    if(2*index+1 < size && element.compareTo(ary[2*index+1]) > 0){
+	    if(2*index+1 < size && element.compareTo(ary[2*index+1]) < 0){
 		swapDown(index,1);
 		System.out.println(toString());
 		System.out.println(index);
