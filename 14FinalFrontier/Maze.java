@@ -16,35 +16,18 @@ public class Maze{
       YOU MUST COMPLETE THIS METHOD!!!
     */
     public Location[] getNeighbors(Location L){
-	int size = 0;
-	int[] stuff = new int[4];
-	if(L.getX() > 0 && symbol = ' '){
-	    size++;
-	    stuff[0] = 1;
-	}
-	if(L.getX() < maze[0].length - 1  && symbol = ' '){
-	    size++;
-	    stuff[0] = 1;
-	}
-	if(L.getY() > 0 && symbol = ' '){
-	    size++;
-	    stuff[0] = 1;
-	}
-	if(L.getY() < maze.length - 1  && symbol = ' '){
-	    size++;
-	    stuff[0] = 1;
-	}
 	Location[] locations = new Location[size];
 	int index = 0;
 	for(int i = 0;i < 4;i++){
 	    int nextX = L.getX()+moves[i];
 	    int nextY = L.getY()+moves[i+4];
-	    if(stuff[i] == 1){
+	    if(nextX >= 0 && nextX < maze[0].length && nextY >= 0 && nextY < maze.length && (maze[nextX][nextY] == ' ' || maze[nextX][nextY] == 'E')){
 		locations[index] = new Location(nextX,nextY,L);
 		index++;
 	    }
 	}
 	return locations;
+	
     }
 
     public Location getStart(){
