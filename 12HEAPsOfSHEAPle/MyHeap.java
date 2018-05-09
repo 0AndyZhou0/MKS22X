@@ -91,6 +91,19 @@ public class MyHeap<T extends Comparable<T>>{
 	    if(2*index+1 < size && element.compareTo(ary[2*index+1]) < 0){
 		swapDown(index,1);
 	    }
+	}else{
+	    while(2*index+2 < size && (element.compareTo(ary[2*index+1]) > 0 || element.compareTo(ary[2*index+2]) > 0)){
+		if(ary[2*index+1].compareTo(ary[2*index+2]) <= 0){
+		    swapDown(index,1);
+		    index = index * 2 + 1;
+		}else{
+		    swapDown(index,2);
+		    index = index * 2 + 2;
+		}
+	    }
+	    if(2*index+1 < size && element.compareTo(ary[2*index+1]) > 0){
+		swapDown(index,1);
+	    }
 	}
     }
 
