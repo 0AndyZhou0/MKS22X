@@ -13,6 +13,21 @@ public class MazeSolver{
     //0: BFS
     //1: DFS
     public boolean solve(int mode){
+	if(mode = 0){
+	    QueueFrontier frontier = new QueueFrontier();
+	    frontier.add(maze.getStart());
+	    while(frontier.size() != 0){
+		Location[] locs = getNeighbors(frontier.removeFirst());
+		for(int i = 0;i < 4;i++){
+		    if(locs[i] != null){
+			if(maze.get(locs[i].getX(),locs[i].getY()).equals('E')){
+			    return true;
+			}
+			frontier.add(locs[i]);
+		    }
+		}
+	    }
+	}
 	//initialize your frontier
 	//while there is stuff in the frontier:
 	//  get the next location
