@@ -1,9 +1,41 @@
 public class Maze{
   private Location start,end;
   private char[][] board;
+    
+    public Maze(String mazeText){
+	try{
+	    aMAZEingScouter(filename);
+	}catch(FileNotFoundException e){
+	    System.out.println(filename+".dat could not be found");
+	    System.exit(1);
+	}
+    }
 
-  public Maze(String mazeText){
-  }
+    public  void aMAZEingScouter(String filename) throws FileNotFoundException{
+	ArrayList<char[]> mazeTemp = new ArrayList<>();
+	File text = new File(filename);
+	Scanner inf = new Scanner(text);
+	while(inf.hasNextLine()){
+	    String temp = inf.nextLine();
+	    char[] line = new char[temp.length()];
+	    for(int i = 0;i < line.length;i++){
+		line[i] = temp.charAt(i);
+	    }
+	    mazeTemp.add(line);
+	}
+	maze = new char[mazeTemp.size()][mazeTemp.get(0).length];
+        for(int r = 0;r < maze.length;r++){
+	    for(int c = 0;c < maze[0].length;c++){
+	        maze[r][c] = mazeTemp.get(r)[c];
+		if(maze[r][c] == 'S'){
+		    start = new Location(r,c);
+		}
+		if(maze[r][c] == 'E'){
+		    end = new Location(r,c);
+		}
+	    }
+	}
+    }
 
   // '#' - wall 
   // ' ' - open space
@@ -27,11 +59,11 @@ public class Maze{
   }
 
   public Location getStart(){
-    return null;
+    return start;
   }
 
   public Location getEnd(){
-    return null;
+    return end;
   }
 
 
