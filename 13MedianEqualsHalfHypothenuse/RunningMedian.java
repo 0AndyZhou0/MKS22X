@@ -11,6 +11,26 @@ public class RunningMedian{
 	System.out.println(a.getMedian());
 	a.add(74.0);
 	System.out.println(a.getMedian());
+	a.add(1231.2);
+	System.out.println(a.getMedian());
+	a.add(12.0);
+	System.out.println(a.getMedian());
+	a.add(1.0);
+	System.out.println(a.getMedian());
+	a.add(.643);
+	System.out.println(a.getMedian());
+	a.add(74.0);
+	System.out.println(a.getMedian());
+	a.add(1231.2);
+	System.out.println(a.getMedian());
+	a.add(12.0);
+	System.out.println(a.getMedian());
+	a.add(1.0);
+	System.out.println(a.getMedian());
+	a.add(.643);
+	System.out.println(a.getMedian());
+	a.add(74.0);
+	System.out.println(a.getMedian());
     }
     
     private MyHeap<Double> smaller,larger;
@@ -44,7 +64,11 @@ public class RunningMedian{
 	    throw new NullPointerException();
 	}
 	if(size() % 2 == 1){
-	    return smaller.peek();
+	    if(smaller.size() > larger.size()){
+		return smaller.peek();
+	    }else{
+		return larger.peek();
+	    }
 	}
 	return (larger.peek() + smaller.peek()) / 2;
     }
