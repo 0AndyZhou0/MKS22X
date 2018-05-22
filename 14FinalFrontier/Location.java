@@ -19,4 +19,10 @@ public class Location{
     public Location getPrev(){
 	return previous;
     }
+
+    public int distanceToStart(){
+	return 0;
+	//ADD STUFF
+	//PLEASE
+    }
 }
