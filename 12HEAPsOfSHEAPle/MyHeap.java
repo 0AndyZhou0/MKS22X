@@ -5,8 +5,9 @@ public class MyHeap<T extends Comparable<T>>{
 
     public static void main(String[] args){
         MyHeap<Integer> heap = new MyHeap<>();
+	int[] ary = new int[15];
 	for(int i = 0; i < 15; i++){
-	    heap.add(i);
+	    ary[i] = 15-i;
 	}
 	System.out.println(heap);
 	// heap.remove();
@@ -19,8 +20,10 @@ public class MyHeap<T extends Comparable<T>>{
 	// System.out.println(heap);
 	// heap.remove();
 	// System.out.println(heap);
-	heap.heapsort();
-	System.out.println(heap);
+	heapsort(ary);
+	for(int i = 0;i < 15;i++){
+	    System.out.print(ary[i] + " ");
+	}
     }
     
     @SuppressWarnings("unchecked")
@@ -137,11 +140,15 @@ public class MyHeap<T extends Comparable<T>>{
 	ary[2*n+inc] = temp;
     }
 
-    public void heapsort(){
-	int temp = size;
-	while(size > 1){
-	    remove();
+    public static void heapsort(int[] data){
+	MyHeap<Integer> heap = new MyHeap(); 
+	for(int i = 0;i < data.length;i++){
+	    heap.add(data[i]);
 	}
-	size = temp;
+	int temp = heap.size();
+	while(heap.size() > 1){
+	    data[heap.size() - 1] = heap.remove();
+	}
+	data[0] = heap.remove();
     }
 }
