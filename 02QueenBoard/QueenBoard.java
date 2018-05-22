@@ -16,11 +16,11 @@ public class QueenBoard{
 	for(int r = 0;r < board.length;r++){
 	    for(int c = 0;c < board.length;c++){
 		if(board[r][c] != 0){
-		    return false;
+		    return true;
 		}
 	    }
 	}
-	return true;
+	return false;
     }
     
     private boolean addQueen(int r, int c){
@@ -120,7 +120,7 @@ public class QueenBoard{
      *@throws IllegalStateException when the board starts with any non-zero value
      */
     public boolean solve(){
-	if(!checkZeros()){
+	if(hasNonZero()){
 	    throw new IllegalStateException();
 	}
 	return solveHelper(0);
@@ -145,7 +145,7 @@ public class QueenBoard{
      *@throws IllegalStateException when the board starts with any non-zero value
      */
     public int countSolutions(){
-	if(!checkZeros()){
+	if(hasNonZero()){
 	    throw new IllegalStateException();
 	}
         solutions = 0;
@@ -167,16 +167,5 @@ public class QueenBoard{
 	    }
 	}
 	return false;
-    }
-
-    private boolean checkZeros(){
-	for(int x = 0;x < board.length;x++){
-	    for(int y = 0;y < board.length;y++){
-		if(board[x][y] == 0){
-		    return false;
-		}
-	    }
-	}
-	return true;
     }
 }
